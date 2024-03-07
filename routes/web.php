@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AssetController;
+use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,10 +16,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// トップページや一般ユーザー向けのページ
+// トップページや一般ユーザーなどすべてのユーザー向けのページ
 Route::get('/', function () {
-    return view('welcome');
+        return view('welcome');
 })->name('home');
+
+Route::get('/', [WelcomeController::class, 'index'])->name('home');
+// Route::get('/detail/{id}', [WelcomeController::class, 'detail'])->name('detail');
 
 Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
 Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -30,7 +34,10 @@ Route::middleware('admin')->group(function () {
         return view('dashboard');
     })->name('dashboard');
 
-    Route::resource('assets', AssetController::class);
+    Route::resource('assets', AssetController::class)->except('show');
 });
+
+// 一般ユーザーがアクセス可能なアセット表示ルート
+Route::get('/assets/{asset}', [AssetController::class, 'show'])->name('assets.show');
 
 require __DIR__ . '/auth.php';

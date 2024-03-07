@@ -833,68 +833,17 @@
 </head>
 
 <body class="antialiased">
-    <div class="relative sm:flex sm:justify-center sm:items-center min-h-screen bg-dots-darker bg-center bg-gray-100 dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white">
-        @if (Route::has('login'))
-        <div class="sm:fixed sm:top-0 sm:right-0 p-6 text-right z-10">
-            @auth
-            <a href="{{ url('/dashboard') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">オーナーモードへ</a>
 
+    @include('layouts.top')
 
-            <!-- Settings Dropdown -->
-
-            <x-dropdown align="right" width="48">
-                <x-slot name="trigger">
-                    <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm  transition ease-in-out duration-150">
-                        <div>{{ Auth::user()->name }}</div>
-                        <div class="ml-1">
-                            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                            </svg>
-                        </div>
-                    </button>
-                </x-slot>
-
-                <x-slot name="content">
-                    <x-dropdown-link :href="route('profile.edit')">
-                        {{ __('Profile') }}
-                    </x-dropdown-link>
-
-                    <!-- Authentication -->
-                    <form method="POST" action="{{ route('logout') }}">
-                        @csrf
-
-                        <x-dropdown-link :href="route('logout')" onclick="event.preventDefault();
-                                                            this.closest('form').submit();">
-                            {{ __('Log Out') }}
-                        </x-dropdown-link>
-                    </form>
-                </x-slot>
-            </x-dropdown>
-
-
-
-
-
-            @else
-            <a href="{{ route('login') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Log in</a>
-
-            @if (Route::has('register'))
-            <a href="{{ route('register') }}" class="ml-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">ユーザー登録</a>
-            @endif
-
-            @if (Route::has('admin.register')) <!-- 管理者登録ルートが存在する場合 -->
-            <a href="{{ route('admin.register') }}" class="ml-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">団体さんに施設を掲載</a> <!-- 管理者登録リンクを追加 -->
-            @endif
-            @endauth
-        </div>
-        @endif
-
+        <!-- 施設情報を以下に掲載 -->
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900 dark:text-gray-100">
+                    <div class="flex flex-wrap -m-4">
                         @foreach ($assets as $asset)
-                        <div class="mb-4 p-4 bg-gray-100 dark:bg-gray-700 rounded-lg">
+                        <div class="mb-4 p-4 bg-gray-100 dark:bg-gray-700 rounded-lg w-full md:w-1/2 lg:w-1/3 xl:w-1/4">
                             <p class="text-gray-800 dark:text-gray-300">{{ $asset->asset }}</p>
                             @if ($asset->image)
                             <img src="{{ Storage::url($asset->image) }}" alt="Asset Image" class="mt-2 rounded" style="max-width: 300px; max-height: 200px; object-fit: cover;"> <!-- 画像を表示 -->
@@ -908,6 +857,7 @@
                             <a href="{{ route('assets.show', $asset) }}" class="text-blue-500 hover:text-blue-700">詳細を見る</a>
                         </div>
                         @endforeach
+                    </div>
                     </div>
                 </div>
             </div>

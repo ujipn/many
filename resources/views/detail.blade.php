@@ -1,10 +1,11 @@
-<!-- resources/views/assets/show.blade.php -->
-
-<x-allapp-layout>
+<x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             {{ __('施設詳細') }}
         </h2>
+        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">予約手続きへ</button>
+        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">施設に相談</button>
+        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">候補に追加</button>
 
     </x-slot>
 
@@ -43,4 +44,4 @@
             </div>
         </div>
     </div>
-</x-allapp-layout>
+</x-app-layout>

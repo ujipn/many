@@ -16,7 +16,11 @@ class EnsureUserIsAdmin
      */
     public function handle(Request $request, Closure $next)
     {
-        if (! $request->user() || ! $request->user()->is_admin) {
+        //リクエストを行ったユーザーがログインしていない、またはユーザーが管理者でない場合、次の行のコードを実行します。
+        if (! $request->user() //ログインしていない場合
+         || ! $request->user()->is_admin //ユーザーが管理者でない場合
+         ) 
+         { 
             abort(403);
         }
 

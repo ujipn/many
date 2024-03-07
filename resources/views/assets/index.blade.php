@@ -9,6 +9,7 @@
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
       <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
         <div class="p-6 text-gray-900 dark:text-gray-100">
+        <div class="flex flex-wrap -m-4">
           @foreach ($assets as $asset)
           <div class="mb-4 p-4 bg-gray-100 dark:bg-gray-700 rounded-lg">
             <p class="text-gray-800 dark:text-gray-300">{{ $asset->asset }}</p>
@@ -24,6 +25,7 @@
             <a href="{{ route('assets.show', $asset) }}" class="text-blue-500 hover:text-blue-700">詳細を見る</a>
           </div>
           @endforeach
+        </div>
         </div>
       </div>
     </div>
