@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AssetController;
 use App\Http\Controllers\WelcomeController;
+use App\Http\Controllers\CalendarController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -39,5 +40,11 @@ Route::middleware('admin')->group(function () {
 
 // 一般ユーザーがアクセス可能なアセット表示ルート
 Route::get('/assets/{asset}', [AssetController::class, 'show'])->name('assets.show');
+
+//カレンダー機能
+Route::get('/calendar', [CalendarController::class,'index'])->name('calendar');
+Route::post('/calendar', [CalendarController::class, 'store'])->name('calendars.store');
+    //アセットIDをパラメータとして受け取るように設定
+Route::get('get_events/{asset_id}', [CalendarController::class, 'getEvents']);
 
 require __DIR__ . '/auth.php';

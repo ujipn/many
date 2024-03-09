@@ -10,7 +10,37 @@
                     </a>
                 </div>
 
-                <!-- Navigation Links -->
+                    <!-- Navigation Links -->
+                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                        <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
+                            {{ __('候補一覧') }}
+                        </x-nav-link>
+              
+                        <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
+                            {{ __('予約状況を確認する') }}
+                        </x-nav-link>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Responsive Navigation Menu -->
+        <!-- <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
+            <div class="pt-2 pb-3 space-y-1">
+                <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                    {{ __('Dashboard') }}
+                </x-responsive-nav-link>
+                <x-nav-link :href="route('assets.index')" :active="request()->routeIs('assets.index')">
+                    {{ __('団体向け施設一覧') }}
+                </x-nav-link>
+                <x-nav-link :href="route('assets.create')" :active="request()->routeIs('assets.create')">
+                    {{ __('団体向け施設作成') }}
+                </x-nav-link>
+                <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
+                    {{ __('クライアントモードへ') }}
+                </x-nav-link>
+            </div> -->
 
             </div>
 
