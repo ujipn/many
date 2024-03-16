@@ -859,8 +859,9 @@
                             <p class="text-gray-600 dark:text-gray-400 text-sm">所在地: {{ $asset->asset_area }}</p>
                             <p class="text-gray-600 dark:text-gray-400 text-sm">収容人数: {{ $asset->asset_number }}人</p>
                             <p class="text-gray-600 dark:text-gray-400 text-sm">金額: {{ $asset->asset_amount }}円</p>
-
-                            <a href="{{ route('assets.show', $asset) }}" class="text-blue-500 hover:text-blue-700">詳細を見る</a>
+                            <div class="text-left">
+                            <a href="{{ route('assets.show', $asset) }}" class="inline-block px-6 py-4 bg-pink-500 text-white text-center rounded">詳細を見る</a>
+                            </div>
                         </div>
                         @endforeach
                     </div>

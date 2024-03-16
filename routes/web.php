@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AssetController;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\CalendarController;
+use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -52,5 +53,9 @@ Route::delete('/calendar/{calendar}', [CalendarController::class, 'destroy'])->n
 
     //アセットIDをパラメータとして受け取るように設定
 Route::get('get_events/{asset_id}', [CalendarController::class, 'getEvents']);
+
+//取引機能
+Route::get('transaction/{calendar_id}', [TransactionController::class, 'index'])->name('transaction.index');
+Route::post('transaction/{calendar_id}', [TransactionController::class, 'store'])->name('transaction.store');
 
 require __DIR__ . '/auth.php';

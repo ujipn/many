@@ -1,4 +1,3 @@
-<!-- resources/views/assets/show.blade.php -->
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
@@ -87,34 +86,68 @@
             </div>
         </div>
     </nav>
+
     <div class="flex bg-gray-100">
+        <!-- Left side -->
         <div class="text-gray-700 px-4 py-4 w-1/3">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900 dark:text-gray-100">
-                        <h1>募集詳細</h1>
+                        <h1>取引情報</h1>
 
                         <p class="text-gray-600 dark:text-gray-400 text-sm">施設名: {{ $asset->asset_name }}</p>
-                        <p class="text-gray-600 dark:text-gray-400 text-sm">空いている日: {{ $calendar->start_date }}</p>
-                        <p class="text-gray-600 dark:text-gray-400 text-sm">（終了日: {{ $calendar->end_date }}）</p>
-                        <p class="text-gray-600 dark:text-gray-400 text-sm">募集上限: {{ $calendar->reserve_number }}人</p>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">予約日: {{ $calendar->start_date }}</p>
                         <div class="text-gray-600 dark:text-gray-400 text-sm">
-                            <p>作成日: {{ $calendar->created_at->format('Y-m-d H:i') }}</p>
+                            <p>作成日: {{ $calendar->created_at->format('Y-m-d') }}</p>
                         </div>
-
                     </div>
-                    <!-- 予約確定ボタンを追加 -->
-                    <form method="POST" action="{{ route('transaction.store', ['calendar_id' => $calendar->id]) }}">
-                        @csrf
-                        <div class="text-right">
-                            <button type="submit" class="inline-block px-6 py-4 bg-pink-500 text-white text-center rounded">予約する</button>
-                        </div>
-                    </form>
                 </div>
-
             </div>
         </div>
 
+        <!-- Right side -->
+        <div class="text-gray-700 px-4 py-4 w-2/3">
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                    <!-- Status -->
+                    <div class="p-6 bg-white border-b border-gray-200 dark:border-gray-700">
+                        現在のステータスは、
+                    @switch($transaction->status)
+                        @case('pending')
+                        予約手続き中
+                        @break
+
+                        @case('completed')
+                        予約完了
+                        @break
+
+                        @case('cancelled')
+                        キャンセル
+                        @break
+
+                        @default
+                        不明なステータス
+                        @endswitch
+                        です。
+                    </div>
+
+                    <!-- 施設オーナー情報を掲載 -->
+                    <div class="p-6 bg-white border-b border-gray-200 dark:border-gray-700">
+                        施設オーナー：{{ $calendar->user->name }}さん
+                    </div>
+                    <!-- 予約者情報を掲載 -->
+                    <div class="p-6 bg-white border-b border-gray-200 dark:border-gray-700">
+                        予約者： {{ Auth::user() ? Auth::user()->name : 'Guest' }}さん
+                    </div>
+
+                    <!-- Messages -->
+                    <div class="p-6 bg-white border-b border-gray-200 dark:border-gray-700">
+                        <!-- Your messages here -->
+                        メッセージ
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
 </body>

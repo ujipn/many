@@ -15,7 +15,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
-    var asset_id = {{ $asset->id }};
+    
     var calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
         locale: 'ja',
@@ -34,7 +34,7 @@
         noEventsContent: '案件はありません',
         eventSources: [ 
             {
-                url: '/get_events/'+ asset_id, // getEventsメソッドからイベントを取得
+                url: '/get_events/'+  {{ $asset->id }}, // getEventsメソッドからイベントを取得
                 method: 'GET',
                 failure: function() {
                     alert('カレンダーのイベントを取得できませんでした。');
@@ -43,31 +43,15 @@
         ],
         
         eventContent: function(arg) {
-           
-        var reserveNumber = arg.event.extendedProps.reserve_number;
-            //argは関数の引数を表し、ここではFullCalendarから提供されるイベントオブジェクトを参照しています。
-            //eventはargオブジェクトのプロパティで、現在のイベントを表します。
-            //extendedPropsはeventオブジェクトのプロパティで、カスタムプロパティ（PHPのサーバーサイドコードで設定した追加のイベントデータ）を含みます。
-            //つまり、現在のイベントの予約数を取得することを表しています。
-        var Id = arg.event.extendedProps.calendarId;
-        var title = arg.event.title;
-        var createdTime = arg.event.extendedProps.created_at;
-        var url = arg.event.url;
-
-        if (arg.view.type === 'listMonth') {
-        return {
-            html: '<a href="' + url + '"> (募集番号: ' + Id + ')' + title + ' (募集人数: ' + reserveNumber + ')' + ' (登録時間: ' + createdTime + ')</a>',
-        };
-    } else {
-        return {
-            html: '<a href="' + url + '">' + title + '</a>',
-        };
-    }
-    },
-        
-    });
-    calendar.render();
- });
+                    var htmlContent = '<a href="' + arg.event.url + '">' + arg.event.title + '</a>';
+                    if (arg.view.type === 'listMonth') {
+                        htmlContent = '<a href="' + arg.event.url + '"> (募集番号: ' + arg.event.extendedProps.calendarId + ')' + arg.event.title + ' (募集人数: ' + arg.event.extendedProps.reserve_number + ')' + ' (登録時間: ' + arg.event.extendedProps.created_at + ')</a>';
+                    }
+                    return { html: htmlContent };
+                },
+            });
+            calendar.render();
+        });
     </script>
 </head>
 
