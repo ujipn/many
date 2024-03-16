@@ -6,7 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>団体さんいらっしゃい</title>
-
+ <!-- Bootstrap CSS -->
+ <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
@@ -841,9 +847,9 @@
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white dark:bg-gray-800  shadow-sm sm:rounded-lg ">
                     <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <div class="flex flex-wrap -m-4">
+                    <div class="-m-4">
                         @foreach ($assets as $asset)
-                        <div class="mb-4 p-4 bg-gray-100 dark:bg-gray-700 rounded-lg w-full md:w-1/2 lg:w-1/3 xl:w-1/4">
+                        <div class="mb-4 p-4 bg-gray-100 dark:bg-gray-700 rounded-lg ">
                             <p class="text-gray-800 dark:text-gray-300">{{ $asset->asset }}</p>
                             @if ($asset->image)
                             <img src="{{ Storage::url($asset->image) }}" alt="Asset Image" class="mt-2 rounded" style="max-width: 300px; max-height: 200px; object-fit: cover;"> <!-- 画像を表示 -->

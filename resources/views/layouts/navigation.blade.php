@@ -43,6 +43,11 @@
                     </x-slot>
 
                     <x-slot name="content">
+                        @if (Auth::user()->is_admin)
+                        <x-dropdown-link :href="url('/dashboard')">
+                            {{ __('オーナーモードへ') }}
+                        </x-dropdown-link>
+                        @endif
                         <x-dropdown-link :href="route('profile.edit')">
                             {{ __('Profile') }}
                         </x-dropdown-link>

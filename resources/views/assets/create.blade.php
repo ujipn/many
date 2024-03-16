@@ -12,6 +12,10 @@
           <form method="POST" action="{{ route('assets.store') }}" enctype="multipart/form-data">
             @csrf
             <div class="mb-4">
+              <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">タイトル</label>
+              <input type="text" name="asset_title" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 dark:bg-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+              </div>
+            <div class="mb-4">
               <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">施設名</label>
               <input type="text" name="asset_name" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 dark:bg-gray-700 leading-tight focus:outline-none focus:shadow-outline">
               </div>
@@ -26,10 +30,6 @@
             <div class="mb-4">
               <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">値段</label>
               <input type="text" name="asset_amount" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 dark:bg-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-            </div>
-            <div class="mb-4">
-              <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">予約受付日時</label>
-              <input type="date" name="published" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 dark:bg-gray-700 leading-tight focus:outline-none focus:shadow-outline">
             </div>
             <div class="mb-4">
               <label for="image" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">画像</label>

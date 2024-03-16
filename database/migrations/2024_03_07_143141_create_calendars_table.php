@@ -17,7 +17,8 @@ class CreateCalendarsTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('asset_id');
             $table->dateTime('start_date');
-            $table->dateTime('end_date');
+            $table->dateTime('end_date')->nullable();
+            $table->integer('reserve_number');
             $table->timestamps();
         });
     }

@@ -43,7 +43,13 @@ Route::get('/assets/{asset}', [AssetController::class, 'show'])->name('assets.sh
 
 //カレンダー機能
 Route::get('/calendar', [CalendarController::class,'index'])->name('calendar');
+Route::get('/calendar/create/{asset_id}', [CalendarController::class,'create'])->name('calendars.create');
+Route::get('/calendar/edit/{asset_id}/{calendar_id}', [CalendarController::class,'edit'])->name('calendars.edit');
+Route::put('/calendar/update/{asset_id}/{calendar_id}', [CalendarController::class,'update'])->name('calendars.update');
+Route::get('/calendar/show/{calendar_id}', [CalendarController::class,'show'])->name('calendars.show');
 Route::post('/calendar', [CalendarController::class, 'store'])->name('calendars.store');
+Route::delete('/calendar/{calendar}', [CalendarController::class, 'destroy'])->name('calendars.destroy');
+
     //アセットIDをパラメータとして受け取るように設定
 Route::get('get_events/{asset_id}', [CalendarController::class, 'getEvents']);
 

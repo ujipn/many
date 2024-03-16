@@ -86,91 +86,30 @@
 
             </div>
         </div>
-
-        <!-- Responsive Navigation Menu -->
-        <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
-            <div class="pt-2 pb-3 space-y-1">
-                <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
-                    {{ __('TOPへ') }}
-                </x-nav-link>
-            </div>
-
-            <!-- Responsive Settings Options -->
-            <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
-                <div class="px-4">
-                    <div class="font-medium text-base text-gray-800 dark:text-gray-200">{{ Auth::user() ? Auth::user()->name : 'Guest' }}</div>
-                    <div class="font-medium text-sm text-gray-500">{{ Auth::user() ? Auth::user()->email : 'Guest' }}</div>
-                </div>
-
-                <div class="mt-3 space-y-1">
-                    <x-responsive-nav-link :href="route('profile.edit')">
-                        {{ __('Profile') }}
-                    </x-responsive-nav-link>
-
-                    <!-- Authentication -->
-                    <form method="POST" action="{{ route('logout') }}">
-                        @csrf
-
-                        <x-responsive-nav-link :href="route('logout')" onclick="event.preventDefault();
-                                        this.closest('form').submit();">
-                            {{ __('Log Out') }}
-                        </x-responsive-nav-link>
-                    </form>
-                </div>
-            </div>
-        </div>
     </nav>
-
-    <!-- 全体：施設が出る部分 -->
     <div class="flex bg-gray-100">
-        <!-- 左側部分 -->
-        <div class="text-gray-700 px-4 py-4 w-1/2">
+        <div class="text-gray-700 px-4 py-4 w-1/3">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900 dark:text-gray-100">
-                        <h1>{{ $asset->asset_title }}</h1>
-                        <p class="text-gray-700 dark:text-gray-300 text-lg">{{ $asset->asset }}</p>
-                        @if ($asset->image)
-                        <img src="{{ Storage::url($asset->image) }}" alt="Asset Image" class="mt-2 rounded"> <!-- 画像を表示 -->
-                        @endif
+                        <h1>募集詳細</h1>
 
-                        <h2 class="text-gray-600 dark:text-gray-400 text-sm">！利用者評価：＊＊点</h2>
-                        <h2 class="text-gray-600 dark:text-gray-400 text-sm">！利用者レビュー：＊＊件</h2>
-                        <a href="{{ route('profile.edit') }}" class="text-blue-500 hover:text-blue-700 mr-2">！施設オーナー：{{ $asset->user->name }}さん</a>
                         <p class="text-gray-600 dark:text-gray-400 text-sm">施設名: {{ $asset->asset_name }}</p>
-                        <p class="text-gray-600 dark:text-gray-400 text-sm">所在地: {{ $asset->asset_area }}</p>
-                        <p class="text-gray-600 dark:text-gray-400 text-sm">所要人数: {{ $asset->asset_number }}人</p>
-                        <p class="text-gray-600 dark:text-gray-400 text-sm">金額: {{ $asset->asset_amount }}円</p>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">空いている日: {{ $calendar->start_date }}</p>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">（終了日: {{ $calendar->end_date }}）</p>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">募集上限: {{ $calendar->reserve_number }}人</p>
                         <div class="text-gray-600 dark:text-gray-400 text-sm">
-                            <p>投稿日時: {{ $asset->created_at->format('Y-m-d H:i') }}</p>
-                            <p>更新日時: {{ $asset->updated_at->format('Y-m-d H:i') }}</p>
+                            <p>作成日: {{ $calendar->created_at->format('Y-m-d H:i') }}</p>
                         </div>
-                        @if (auth()->id() == $asset->user_id)
-                        <div class="flex mt-4">
-                            <a href="{{ route('assets.edit', $asset) }}" class="text-blue-500 hover:text-blue-700 mr-2">編集</a>
-                            <form action="{{ route('assets.destroy', $asset) }}" method="POST" onsubmit="return confirm('本当に削除しますか？');">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="text-red-500 hover:text-red-700">削除</button>
-                            </form>
-                        </div>
-                        @endif
+
+                    </div>
+                    <!-- 予約確定ボタンを追加 -->
+                    <div class="text-right">
+                        <a href="" class="inline-block px-6 py-4 bg-pink-500 text-white text-center rounded">予約を確定する</a>
                     </div>
                 </div>
+
             </div>
-        </div>
-
-        <!--右側エリア[START]-->
-        <div class="w-1/2">
-            <div class="py-4">
-                <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                        @include('layouts.calendar')
-                    </div>
-                </div>
-            </div>
-
-
         </div>
 
     </div>

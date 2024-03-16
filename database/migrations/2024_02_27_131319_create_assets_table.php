@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('assets', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->string('asset_title');
             $table->string('asset_name');
             $table->string('asset_area');
             $table->integer('asset_number');
             $table->integer('asset_amount');            
-            $table->datetime('published');
             $table->string('image')->nullable(); // 画像のパスを保存するための新しいカラム
             $table->timestamps();
         });

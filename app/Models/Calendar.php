@@ -14,7 +14,9 @@ class Calendar extends Model
         'asset_id',
         'start_date',
         'end_date',
+        'reserve_number',
     ];
+    
 
     public function user()
     {

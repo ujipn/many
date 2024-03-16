@@ -13,7 +13,7 @@ class AssetController extends Controller
     public function index()
     {
         //Assetの一覧を表示する。全件を新しい順に取得するために latest メソッドを使用する．また，asset に関連するユーザ情報を取得するために with メソッドを使用する
-        $assets = Asset::with('user')->where('user_id', auth()->id())->latest()->get();
+        $assets = Asset::with('user', 'calendars')->where('user_id', auth()->id())->latest()->get();
         return view('assets.index', compact('assets'));
     }
 
@@ -33,11 +33,11 @@ class AssetController extends Controller
     {
         //
         $request->validate([
+            'asset_title' => 'required|min:1|max:255',
             'asset_name' => 'required|min:1|max:255',
             'asset_area' => 'required|min:1|max:10',
             'asset_number' => 'required | min:1 | max:20',
             'asset_amount' => 'required',
-            'published'   => 'required',
             'image' => 'nullable|image', // 画像のバリデーションルールを追加
         ]);
 
@@ -49,11 +49,11 @@ class AssetController extends Controller
         // Eloquentモデル
         $assets = new Asset;
         $assets->user_id = auth()->id();
+        $assets->asset_title   = $request->asset_title;
         $assets->asset_name   = $request->asset_name;
         $assets->asset_area   = $request->asset_area;
         $assets->asset_number = $request->asset_number;
         $assets->asset_amount = $request->asset_amount;
-        $assets->published   = $request->published;
         $assets->image = $imagePath; // 画像のパスを保存
         $assets->save();
 
@@ -89,11 +89,11 @@ class AssetController extends Controller
         }
         //
         $request->validate([
+            'asset_title' => 'required|min:1|max:255',
             'asset_name' => 'required|min:1|max:255',
             'asset_area' => 'required|min:1|max:10',
             'asset_number' => 'required | min:1 | max:20',
             'asset_amount' => 'required',
-            'published'   => 'required',
             'image' => 'nullable|image', // 画像のバリデーションルールを追加
         ]);
 
@@ -105,7 +105,7 @@ class AssetController extends Controller
             $imagePath = $asset->image;
         }
 
-        $asset->update($request->only('asset_name', 'asset_area', 'asset_number', 'asset_amount', 'published'));
+        $asset->update($request->only('asset_title','asset_name', 'asset_area', 'asset_number', 'asset_amount'));
 
         return redirect()->route('assets.index');
     }
