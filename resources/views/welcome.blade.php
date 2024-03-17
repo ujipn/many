@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>団体さんいらっしゃい</title>
- <!-- Bootstrap CSS -->
- <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <!-- Bootstrap JS -->
@@ -840,36 +840,40 @@
 
 <body class="antialiased">
 
-@include('layouts.top')
+    @include('layouts.top')
 
-        <!-- 施設情報を以下に掲載 -->
-        <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white dark:bg-gray-800  shadow-sm sm:rounded-lg ">
-                    <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <div class="-m-4">
+    <!-- 施設情報を以下に掲載 -->
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white dark:bg-gray-800  shadow-sm sm:rounded-lg ">
+                <div class="p-6 text-gray-900 dark:text-gray-100">
+                    <div class="flex flex-wrap -mx-4">
+                        <!-- 全体のコンテナにflexとflex-wrapクラスを追加して、子要素がフレックスボックスのアイテムとして動作し、必要に応じて折り返すようにしています。 -->
                         @foreach ($assets as $asset)
-                        <div class="mb-4 p-4 bg-gray-100 dark:bg-gray-700 rounded-lg ">
-                            <p class="text-gray-800 dark:text-gray-300">{{ $asset->asset }}</p>
-                            @if ($asset->image)
-                            <img src="{{ Storage::url($asset->image) }}" alt="Asset Image" class="mt-2 rounded" style="max-width: 300px; max-height: 200px; object-fit: cover;"> <!-- 画像を表示 -->
-                            @endif
-                            <!-- <p class="text-gray-600 dark:text-gray-400 text-sm">施設オーナー: {{ $asset->user->name }}</p> -->
-                            <p class="text-gray-600 dark:text-gray-400 text-sm">施設名: {{ $asset->asset_name }}</p>
-                            <p class="text-gray-600 dark:text-gray-400 text-sm">所在地: {{ $asset->asset_area }}</p>
-                            <p class="text-gray-600 dark:text-gray-400 text-sm">収容人数: {{ $asset->asset_number }}人</p>
-                            <p class="text-gray-600 dark:text-gray-400 text-sm">金額: {{ $asset->asset_amount }}円</p>
-                            <div class="text-left">
-                            <a href="{{ route('assets.show', $asset) }}" class="inline-block px-6 py-4 bg-pink-500 text-white text-center rounded">詳細を見る</a>
+                        <div class="p-4 w-full sm:w-1/2 md:w-1/3 lg:w-1/3 xl:w-1/3">
+                            <div class="bg-gray-100 dark:bg-gray-700 rounded-lg overflow-hidden">
+                                <p class="text-gray-800 dark:text-gray-300">{{ $asset->asset }}</p>
+                                @if ($asset->image)
+                                <img src="{{ Storage::url($asset->image) }}" alt="Asset Image" class="mt-2 w-full h-40 object-cover"> <!-- 画像を表示 -->
+                                @endif
+                                <div class="p-4">
+                                    <p class="text-gray-600 dark:text-gray-400 text-sm">施設名: {{ $asset->asset_name }}</p>
+                                    <p class="text-gray-600 dark:text-gray-400 text-sm">所在地: {{ $asset->asset_area }}</p>
+                                    <p class="text-gray-600 dark:text-gray-400 text-sm">収容人数: {{ $asset->asset_number }}人</p>
+                                    <p class="text-gray-600 dark:text-gray-400 text-sm">金額: {{ $asset->asset_amount }}円</p>
+                                    <div class="text-left">
+                                        <a href="{{ route('assets.show', $asset) }}" class="inline-block px-4 py-2 bg-pink-500 text-white text-center rounded">詳細を見る</a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         @endforeach
-                    </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
 </body>
 
 </html>

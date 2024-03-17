@@ -44,8 +44,24 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    // ユーザーは複数の要素を持つことができる
     public function assets()
   {
     return $this->hasMany(Asset::class);
+  }
+
+  public function calendars()
+  {
+    return $this->hasMany(Calendar::class);
+  }
+
+  public function transactions()
+  {
+    return $this->hasMany(Transaction::class);
+  }
+
+  public function posts()
+  {
+    return $this->hasMany(Post::class);
   }
 }

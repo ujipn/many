@@ -31,4 +31,8 @@ class Transaction extends Model
         return $this->belongsTo(Asset::class);
     }
 
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
 }

@@ -4,15 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use App\Models\Transaction;
 
 class PostController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($transaction_id)
     {
-        //
+        $transaction = Transaction::find($transaction_id);
+        $posts = Post::where('transaction_id', $transaction_id)->get();
+    
+        return view('posts.index', compact('transaction', 'posts'));
+
     }
 
     /**
@@ -26,9 +31,19 @@ class PostController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, $transaction_id)
     {
-        //
+        $request->validate([
+            'content' => 'required',
+        ]);
+    
+        $post = new Post;
+        $post->user_id = auth()->id();
+        $post->transaction_id = $transaction_id;
+        $post->content = $request->content;
+        $post->save();
+    
+        return back();
     }
 
     /**

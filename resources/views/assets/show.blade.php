@@ -134,9 +134,9 @@
                         <img src="{{ Storage::url($asset->image) }}" alt="Asset Image" class="mt-2 rounded"> <!-- 画像を表示 -->
                         @endif
 
-                        <h2 class="text-gray-600 dark:text-gray-400 text-sm">！利用者評価：＊＊点</h2>
-                        <h2 class="text-gray-600 dark:text-gray-400 text-sm">！利用者レビュー：＊＊件</h2>
-                        <a href="{{ route('profile.edit') }}" class="text-blue-500 hover:text-blue-700 mr-2">！施設オーナー：{{ $asset->user->name }}さん</a>
+                        <!-- <h2 class="text-gray-600 dark:text-gray-400 text-sm">！利用者評価：＊＊点</h2>
+                        <h2 class="text-gray-600 dark:text-gray-400 text-sm">！利用者レビュー：＊＊件</h2> -->
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">施設オーナー：{{ $asset->user->name }}さん</p>
                         <p class="text-gray-600 dark:text-gray-400 text-sm">施設名: {{ $asset->asset_name }}</p>
                         <p class="text-gray-600 dark:text-gray-400 text-sm">所在地: {{ $asset->asset_area }}</p>
                         <p class="text-gray-600 dark:text-gray-400 text-sm">所要人数: {{ $asset->asset_number }}人</p>

@@ -5,6 +5,7 @@ use App\Http\Controllers\AssetController;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -57,5 +58,13 @@ Route::get('get_events/{asset_id}', [CalendarController::class, 'getEvents']);
 //取引機能
 Route::get('transaction/{calendar_id}', [TransactionController::class, 'index'])->name('transaction.index');
 Route::post('transaction/{calendar_id}', [TransactionController::class, 'store'])->name('transaction.store');
+Route::post('transaction/{calendar_id}', [TransactionController::class, 'store'])
+    ->name('transaction.store')
+    ->middleware('auth');
+
+//取引後のコメントやり取り
+Route::post('post/{transaction_id}', [PostController::class, 'store'])->name('post.store');
+Route::get('posts/{transaction_id}', [PostController::class, 'index'])->name('posts.index');
+
 
 require __DIR__ . '/auth.php';

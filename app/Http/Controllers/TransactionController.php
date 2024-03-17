@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Calendar;
 use App\Models\Asset;
 use App\Models\Transaction;
+use App\Models\Post;
 
 use Illuminate\Http\Request;
 
@@ -18,8 +19,10 @@ class TransactionController extends Controller
         $calendar = Calendar::find($calendar_id);
         $asset = Asset::find($calendar->asset_id);
         $transaction = Transaction::where('calendar_id', $calendar_id)->first();
+        $posts = Post::where('transaction_id', $transaction->id)->get();
 
-        return view('transactions.index', compact('asset', 'calendar','transaction'));
+
+        return view('transactions.index', compact('asset', 'calendar','transaction','posts'));
     }
     /**
      * Show the form for creating a new resource.

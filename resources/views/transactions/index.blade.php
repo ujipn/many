@@ -96,9 +96,9 @@
                         <h1>取引情報</h1>
 
                         <p class="text-gray-600 dark:text-gray-400 text-sm">施設名: {{ $asset->asset_name }}</p>
-                        <p class="text-gray-600 dark:text-gray-400 text-sm">予約日: {{ $calendar->start_date }}</p>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">予約希望日: {{ $calendar->start_date }}</p>
                         <div class="text-gray-600 dark:text-gray-400 text-sm">
-                            <p>作成日: {{ $calendar->created_at->format('Y-m-d') }}</p>
+                            <p>予約登録日: {{ $transaction->created_at->format('Y-m-d') }}</p>
                         </div>
                     </div>
                 </div>
@@ -112,7 +112,7 @@
                     <!-- Status -->
                     <div class="p-6 bg-white border-b border-gray-200 dark:border-gray-700">
                         現在のステータスは、
-                    @switch($transaction->status)
+                        @switch($transaction->status)
                         @case('pending')
                         予約手続き中
                         @break
@@ -137,17 +137,40 @@
                     </div>
                     <!-- 予約者情報を掲載 -->
                     <div class="p-6 bg-white border-b border-gray-200 dark:border-gray-700">
-                        予約者： {{ Auth::user() ? Auth::user()->name : 'Guest' }}さん
+                        予約者： {{ $transaction->user->name }}さん
                     </div>
 
-                    <!-- Messages -->
-                    <div class="p-6 bg-white border-b border-gray-200 dark:border-gray-700">
-                        <!-- Your messages here -->
-                        メッセージ
-                    </div>
+
                 </div>
             </div>
         </div>
+    </div>
+    <!-- Messages -->
+    <div class="p-6 bg-white border-b border-gray-200 dark:border-gray-700">
+        メッセージ
+        
+        @foreach ($posts as $post)
+        <div class="mb-4 p-4 bg-gray-100 dark:bg-gray-700 rounded-lg">
+            <p class="text-gray-800 dark:text-gray-300">{{ $post->content }}</p>
+            <p class="text-gray-600 dark:text-gray-400 text-sm">投稿者: {{ $post->user->name }}</p>
+        </div>
+        @endforeach
+
+        <form method="POST" action="{{ route('post.store', ['transaction_id' => $transaction->id]) }}">
+            @csrf
+            <div class="mb-4">
+                <label for="content" class="sr-only">メッセージ</label>
+                <textarea name="content" id="content" cols="30" rows="4" class="bg-gray-100 dark:bg-gray-700 border-2 w-full p-4 rounded-lg @error('content') border-red-500 @enderror" placeholder="メッセージを入力してください"></textarea>
+                @error('content')
+                <div class="text-red-500 mt-2 text-sm">
+                    {{ $message }}
+                </div>
+                @enderror
+            </div>
+            <div>
+                <button type="submit" class="bg-pink-500 text-white px-4 py-2 rounded font-medium">投稿</button>
+            </div>
+        </form>
     </div>
 
 </body>
