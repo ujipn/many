@@ -138,9 +138,9 @@
         <div class="text-gray-700 px-4 py-4 w-full md:w-1/2">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6 text-gray-900 dark:text-gray-100">
+                    <div class="p-6 text-black dark:text-gray-300">
                         <h1>{{ $asset->asset_title }}</h1>
-                        <p class="text-gray-700 dark:text-gray-300 text-lg">{{ $asset->asset }}</p>
+                        <p class="text-black dark:text-gray-300 text-lg">{{ $asset->asset }}</p>
                         @if ($asset->image)
                         <img src="{{ Storage::url($asset->image) }}" alt="Asset Image" class="mt-2 rounded"> <!-- 画像を表示 -->
                         @endif

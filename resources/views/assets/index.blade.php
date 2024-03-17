@@ -10,7 +10,7 @@
       <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
         <div class="p-6 text-gray-900 dark:text-gray-100">
           @foreach ($assets as $asset)
-          <div class="flex flex-wrap -mx-4 mb-8">
+          <div class="flex flex-wrap -mx-4 mb-8 border-b">
 
             <!-- asset情報 -->
             <div class="mb-4 p-4 md:w-1/2 lg:w-1/3 xl:w-1/4 px-4">
@@ -21,8 +21,8 @@
                 @endif
                 <p class="text-gray-600 dark:text-gray-400 text-sm">施設名: {{ $asset->asset_name }}</p>
                 <p class="text-gray-600 dark:text-gray-400 text-sm">所在地: {{ $asset->asset_area }}</p>
-                <p class="text-gray-600 dark:text-gray-400 text-sm">収容人数: {{ $asset->asset_number }}人</p>
-                <p class="text-gray-600 dark:text-gray-400 text-sm">金額: {{ $asset->asset_amount }}円</p>
+                <p class="text-gray-600 dark:text-gray-400 text-sm">収容人数: {{ number_format($asset->asset_number) }}人</p>
+                <p class="text-gray-600 dark:text-gray-400 text-sm">金額: {{ number_format($asset->asset_amount) }}円</p>
                 <div class="flex justify-start mt-4">
                   <a href="{{ route('assets.show', $asset) }}" class="inline-block px-6 py-4 bg-pink-500 text-white text-center rounded">詳細を見る</a>
 
