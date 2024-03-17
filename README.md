@@ -1,3 +1,14 @@
+<h1>デプロイ時の注意点</h1>
+<p>Unable to create a directory at /home/bitnami/many/storage/app/public/images.</p>
+<p>/home/bitnami/many/storage/app/public/imagesディレクトリを作成できないようです。これは、通常、ディレクトリのパーミッション設定が原因で発生します。
+<h1>解決策</h1>
+<p>以下コマンドを入力</p>
+<p>sudo mkdir -p /home/bitnami/many/storage/app/public/images</p>
+<p>sudo chown -R $USER:www-data /home/bitnami/many/storage</p>
+<p>sudo chmod -R 775 /home/bitnami/many/storage</p>
+<p>これもたぶん必要 php artisan storage:link</p>
+
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
