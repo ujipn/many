@@ -31,7 +31,7 @@
             month: '月',
             list: 'リスト',
         },
-        noEventsContent: '案件はありません',
+        noEventsContent: '募集はありません',
         eventSources: [ 
             {
                 url: '/get_events/'+  {{ $asset->id }}, // getEventsメソッドからイベントを取得

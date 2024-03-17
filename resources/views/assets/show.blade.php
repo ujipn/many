@@ -26,7 +26,7 @@
                 <div class="flex">
                     <!-- Logo -->
                     <div class="shrink-0 flex items-center">
-                        <a href="{{ route('dashboard') }}">
+                        <a href="{{ route('home') }}">
                             <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
                         </a>
                     </div>
@@ -122,9 +122,9 @@
     </nav>
 
     <!-- 全体：施設が出る部分 -->
-    <div class="flex bg-gray-100">
+    <div class="flex flex-col md:flex-row bg-gray-100">
         <!-- 左側部分 -->
-        <div class="text-gray-700 px-4 py-4 w-1/2">
+        <div class="text-gray-700 px-4 py-4 w-full md:w-1/2">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900 dark:text-gray-100">
@@ -136,11 +136,12 @@
 
                         <!-- <h2 class="text-gray-600 dark:text-gray-400 text-sm">！利用者評価：＊＊点</h2>
                         <h2 class="text-gray-600 dark:text-gray-400 text-sm">！利用者レビュー：＊＊件</h2> -->
-                        <p class="text-gray-600 dark:text-gray-400 text-sm">施設オーナー：{{ $asset->user->name }}さん</p>
+                        
                         <p class="text-gray-600 dark:text-gray-400 text-sm">施設名: {{ $asset->asset_name }}</p>
                         <p class="text-gray-600 dark:text-gray-400 text-sm">所在地: {{ $asset->asset_area }}</p>
-                        <p class="text-gray-600 dark:text-gray-400 text-sm">所要人数: {{ $asset->asset_number }}人</p>
-                        <p class="text-gray-600 dark:text-gray-400 text-sm">金額: {{ $asset->asset_amount }}円</p>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">所要人数: {{ number_format($asset->asset_number) }}人</p>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">金額: {{ number_format($asset->asset_amount) }}円</p>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">施設オーナー：{{ $asset->user->name }}さん</p>
                         <div class="text-gray-600 dark:text-gray-400 text-sm">
                             <p>投稿日時: {{ $asset->created_at->format('Y-m-d H:i') }}</p>
                             <p>更新日時: {{ $asset->updated_at->format('Y-m-d H:i') }}</p>
@@ -161,7 +162,7 @@
         </div>
 
         <!--右側エリア[START]-->
-        <div class="w-1/2">
+        <div class="w-full md:w-1/2">
             <div class="py-4">
                 <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
