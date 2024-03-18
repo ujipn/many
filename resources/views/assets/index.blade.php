@@ -44,8 +44,8 @@
             </div>
 
             <!-- 募集状況 -->
-            <div class="p-4 md:w-1/2 lg:w-2/3 xl:w-3/4 px-4">
-              <div class="bg-gray-100 dark:bg-gray-700 rounded-lg overflow-hidden">
+            <div class="p-4 md:w-1/2 lg:w-2/3 xl:w-3/4 px-4 border-b">
+              <div class="bg-gray-100 dark:bg-gray-700 rounded-lg overflow-hidden ">
                 <h1 class="px-3 py-2 text-lg leading-6 font-medium text-gray-900 dark:text-gray-100">募集状況</h1>
                 @foreach ($asset->calendars as $calendar)
                 <div class="mb-4 p-4">

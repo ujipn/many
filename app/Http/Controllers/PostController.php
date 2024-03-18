@@ -75,6 +75,8 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        $calendar_id = $post->transaction->calendar_id;
+        $post->delete();       
+        return redirect()->route('transaction.index', ['calendar_id' => $calendar_id]);
     }
 }

@@ -16,6 +16,7 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/9c33f0ed37.js" crossorigin="anonymous"></script>
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
@@ -841,12 +842,30 @@
 <body class="antialiased">
 
     @include('layouts.top')
+    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="">
+            <div class="flex flex-col sm:flex-row p-4 text-gray-900 dark:text-gray-100">
+                <form method="GET" action="{{ route('home') }}" class="flex flex-col sm:flex-row w-full">
+                    <input type="text" name="search" placeholder="キーワードを入力" class="shadow appearance-none border rounded w-full sm:w-1/4 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-2 sm:mb-0">
+                    <div class="flex justify-between sm:justify-start ml-0 sm:ml-4 w-full sm:w-auto">
+                        <button type="submit" class="inline-block px-4 py-2 bg-glay-500 text-white text-center rounded ml-2">
+                            <i class="fas fa-search"></i> 検索
+                        </button>
+                        <a href="{{ route('home') }}" class="inline-block px-4 py-2 bg-gray-500 text-white text-center rounded ml-2">
+                            <i class="fas fa-times"></i> クリア
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
 
     <!-- 施設情報を以下に掲載 -->
-    <div class="py-12">
+    <div class="py-2">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800  shadow-sm sm:rounded-lg ">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
+                <div class="p-4 text-gray-900 dark:text-gray-100">
                     <div class="flex flex-wrap -mx-4">
                         <!-- 全体のコンテナにflexとflex-wrapクラスを追加して、子要素がフレックスボックスのアイテムとして動作し、必要に応じて折り返すようにしています。 -->
                         @foreach ($assets as $asset)

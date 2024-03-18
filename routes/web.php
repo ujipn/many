@@ -65,6 +65,7 @@ Route::post('transaction/{calendar_id}', [TransactionController::class, 'store']
 //取引後のコメントやり取り
 Route::post('post/{transaction_id}', [PostController::class, 'store'])->name('post.store');
 Route::get('posts/{transaction_id}', [PostController::class, 'index'])->name('posts.index');
+Route::delete('posts/{post}', [PostController::class, 'destroy'])->name('posts.destroy');
 
 
 require __DIR__ . '/auth.php';

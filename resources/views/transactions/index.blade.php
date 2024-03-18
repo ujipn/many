@@ -148,12 +148,22 @@
     <!-- Messages -->
     <div class="p-6 bg-white border-b border-gray-200 dark:border-gray-700">
         メッセージ
-        
+
         @foreach ($posts as $post)
         <div class="mb-4 p-4 bg-gray-100 dark:bg-gray-700 rounded-lg">
             <p class="text-gray-800 dark:text-gray-300">{{ $post->content }}</p>
             <p class="text-gray-600 dark:text-gray-400 text-sm">投稿者: {{ $post->user->name }}</p>
+            @if (auth()->id() == $post->user_id)
+                            
+                <form action="{{ route('posts.destroy', $post) }}" method="POST" onsubmit="return confirm('本当に削除しますか？');">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="text-red-500 hover:text-red-700">削除</button>
+                </form>
+       
+            @endif
         </div>
+
         @endforeach
 
         <form method="POST" action="{{ route('post.store', ['transaction_id' => $transaction->id]) }}">
