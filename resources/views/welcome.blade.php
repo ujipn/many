@@ -7,12 +7,12 @@
 
     <title>団体さんいらっしゃい</title>
     <!-- Bootstrap CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <!-- <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"> -->
     <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script> -->
     <!-- Bootstrap JS -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
-    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
+    <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script> -->
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
@@ -848,10 +848,10 @@
                 <form method="GET" action="{{ route('home') }}" class="flex flex-col sm:flex-row w-full">
                     <input type="text" name="search" placeholder="キーワードを入力" class="shadow appearance-none border rounded w-full sm:w-1/4 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-2 sm:mb-0">
                     <div class="flex justify-between sm:justify-start ml-0 sm:ml-4 w-full sm:w-auto">
-                        <button type="submit" class="inline-block px-4 py-2 bg-glay-500 text-white text-center rounded ml-2">
+                        <button type="submit" class="inline-block px-2 py-2 text-black text-center rounded ml-2">
                             <i class="fas fa-search"></i> 検索
                         </button>
-                        <a href="{{ route('home') }}" class="inline-block px-4 py-2 bg-gray-500 text-white text-center rounded ml-2">
+                        <a href="{{ route('home') }}" class="inline-block px-2 py-2 bg-white-500 text-black text-center rounded ml-2">
                             <i class="fas fa-times"></i> クリア
                         </a>
                     </div>
