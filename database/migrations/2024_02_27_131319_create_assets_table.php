@@ -18,7 +18,8 @@ return new class extends Migration
             $table->string('asset_name');
             $table->string('asset_area');
             $table->integer('asset_number');
-            $table->integer('asset_amount');            
+            $table->integer('asset_amount'); 
+            $table->text('introduction')->nullable();           
             $table->string('image')->nullable(); // 画像のパスを保存するための新しいカラム
             $table->timestamps();
         });

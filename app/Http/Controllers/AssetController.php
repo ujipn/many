@@ -35,9 +35,10 @@ class AssetController extends Controller
         $request->validate([
             'asset_title' => 'required|min:1|max:255',
             'asset_name' => 'required|min:1|max:255',
-            'asset_area' => 'required|min:1|max:10',
+            'asset_area' => 'required|min:1|max:100',
             'asset_number' => 'required | min:1 | max:20',
             'asset_amount' => 'required',
+            'introduction' => 'nullable|max:255', // 施設情報のバリデーションルールを追加
             'image' => 'nullable|image', // 画像のバリデーションルールを追加
         ]);
 
@@ -55,6 +56,7 @@ class AssetController extends Controller
         $assets->asset_number = $request->asset_number;
         $assets->asset_amount = $request->asset_amount;
         $assets->image = $imagePath; // 画像のパスを保存
+        $assets->introduction = $request->introduction; // 施設情報を保存
         $assets->save();
 
         return redirect()->route('assets.index');
@@ -94,6 +96,7 @@ class AssetController extends Controller
             'asset_area' => 'required|min:1|max:10',
             'asset_number' => 'required | min:1 | max:20',
             'asset_amount' => 'required',
+            'introduction' => 'nullable|max:255', // 施設情報のバリデーションルールを追加
             'image' => 'nullable|image', // 画像のバリデーションルールを追加
         ]);
 
@@ -104,6 +107,8 @@ class AssetController extends Controller
         } else {
             $imagePath = $asset->image;
         }
+
+        $asset->introduction = $request->introduction;
 
         $asset->update($request->only('asset_title','asset_name', 'asset_area', 'asset_number', 'asset_amount'));
 

@@ -12,7 +12,7 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-
+    <script src="https://kit.fontawesome.com/9c33f0ed37.js" crossorigin="anonymous"></script>
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
@@ -24,7 +24,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
                 <div class="flex items-center justify-between">
-                   
+
                     <!-- Logo -->
                     <div class="shrink-0 flex items-center">
                         <a href="{{ route('home') }}">
@@ -73,7 +73,7 @@
                             </x-dropdown-link>
                             @endif
                             @if (Auth::check())
-                            <x-dropdown-link :href="route('profile.edit')">
+                            <x-dropdown-link :href="route('profile.show')">
                                 {{ __('Profile') }}
                             </x-dropdown-link>
 
@@ -114,7 +114,7 @@
                 </div>
 
                 <div class="mt-3 space-y-1">
-                    <x-responsive-nav-link :href="route('profile.edit')">
+                    <x-responsive-nav-link :href="route('profile.show')">
                         {{ __('Profile') }}
                     </x-responsive-nav-link>
 
@@ -148,22 +148,32 @@
                         <!-- <h2 class="text-gray-600 dark:text-gray-400 text-sm">！利用者評価：＊＊点</h2>
                         <h2 class="text-gray-600 dark:text-gray-400 text-sm">！利用者レビュー：＊＊件</h2> -->
 
-                        <p class="text-gray-600 dark:text-gray-400 text-sm">施設名: {{ $asset->asset_name }}</p>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm font-medium">施設名: {{ $asset->asset_name }}</p>
                         <p class="text-gray-600 dark:text-gray-400 text-sm">所在地: {{ $asset->asset_area }}</p>
                         <p class="text-gray-600 dark:text-gray-400 text-sm">所要人数: {{ number_format($asset->asset_number) }}人</p>
                         <p class="text-gray-600 dark:text-gray-400 text-sm">金額: {{ number_format($asset->asset_amount) }}円</p>
                         <p class="text-gray-600 dark:text-gray-400 text-sm">施設オーナー：{{ $asset->user->name }}さん</p>
-                        <div class="text-gray-600 dark:text-gray-400 text-sm">
+                        <div class="text-gray-600 dark:text-gray-400 text-sm flex">
                             <p>投稿日時: {{ $asset->created_at->format('Y-m-d H:i') }}</p>
                             <p>更新日時: {{ $asset->updated_at->format('Y-m-d H:i') }}</p>
                         </div>
+                        <div class="">
+                            <p class="text-gray-600 dark:text-gray-400 text-sm font-medium">【施設情報】</p>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm bg-gray-100 dark:bg-gray-700 rounded-lg overflow-hidden">{!! nl2br(e($asset->introduction)) !!}</p>
+                        </div>
+
+
                         @if (auth()->id() == $asset->user_id)
-                        <div class="flex mt-4">
-                            <a href="{{ route('assets.edit', $asset) }}" class="text-blue-500 hover:text-blue-700 mr-2">編集</a>
+                        <div class="flex">
+                            <a href="{{ route('assets.edit', $asset) }}" class="mr-2">
+                                <i class="fas fa-edit text-blue-500 hover:text-blue-700"></i>
+                            </a>
                             <form action="{{ route('assets.destroy', $asset) }}" method="POST" onsubmit="return confirm('本当に削除しますか？');">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="text-red-500 hover:text-red-700">削除</button>
+                                <button type="submit" class="text-red-500 hover:text-red-700">
+                                    <i class="fas fa-trash"></i>
+                                </button>
                             </form>
                         </div>
                         @endif

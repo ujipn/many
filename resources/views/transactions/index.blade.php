@@ -11,7 +11,7 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-
+    <script src="https://kit.fontawesome.com/9c33f0ed37.js" crossorigin="anonymous"></script>
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
@@ -61,7 +61,7 @@
                             </x-dropdown-link>
                             @endif
                             @if (Auth::check())
-                            <x-dropdown-link :href="route('profile.edit')">
+                            <x-dropdown-link :href="route('profile.show')">
                                 {{ __('Profile') }}
                             </x-dropdown-link>
 
@@ -150,18 +150,18 @@
         メッセージ
 
         @foreach ($posts as $post)
-        <div class="mb-4 p-4 bg-gray-100 dark:bg-gray-700 rounded-lg">
-            <p class="text-gray-800 dark:text-gray-300">{{ $post->content }}</p>
-            <p class="text-gray-600 dark:text-gray-400 text-sm">投稿者: {{ $post->user->name }}</p>
+        <div class="flex justify-start items-center mb-4 p-4 bg-gray-100 dark:bg-gray-700 rounded-lg">
             @if (auth()->id() == $post->user_id)
-                            
-                <form action="{{ route('posts.destroy', $post) }}" method="POST" onsubmit="return confirm('本当に削除しますか？');">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="text-red-500 hover:text-red-700">削除</button>
-                </form>
-       
+            <form action="{{ route('posts.destroy', $post) }}" method="POST" onsubmit="return confirm('本当に削除しますか？');">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="text-red-500 hover:text-red-700 mr-2">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </form>
             @endif
+            <p class="text-gray-600 dark:text-gray-400 text-sm flex-grow">投稿者: {{ $post->user->name }} 投稿内容：{{ $post->content }}</p>
+
         </div>
 
         @endforeach

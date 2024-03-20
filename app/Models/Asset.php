@@ -9,7 +9,7 @@ class Asset extends Model
 {
     use HasFactory;
 //許可するデータを指定するために fillable プロパティを使用する
-    protected $fillable = ['asset_title','asset_name', 'asset_area', 'asset_number', 'asset_amount', 'published','image'];
+    protected $fillable = ['asset_title','asset_name', 'asset_area', 'asset_number', 'asset_amount', 'published','image','introduction',];
 
   public function user()
   {

@@ -23,20 +23,22 @@
                 <p class="text-gray-600 dark:text-gray-400 text-sm">所在地: {{ $asset->asset_area }}</p>
                 <p class="text-gray-600 dark:text-gray-400 text-sm">収容人数: {{ number_format($asset->asset_number) }}人</p>
                 <p class="text-gray-600 dark:text-gray-400 text-sm">金額: {{ number_format($asset->asset_amount) }}円</p>
-                <div class="flex justify-start mt-4">
-                  <a href="{{ route('assets.show', $asset) }}" class="inline-block px-6 py-4 bg-pink-500 text-white text-center rounded">詳細を見る</a>
 
-                </div>
-                <div class="flex text-right">
+                <div class="flex justify-between items-center mt-4 mr-2">
+                  <a href="{{ route('assets.show', $asset) }}" class="inline-flex items-center px-4 py-2 bg-pink-500 dark:bg-pink-700 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-pink-400 dark:hover:bg-pink-600 focus:bg-pink-400 dark:focus:bg-pink-600 active:bg-pink-600 dark:active:bg-pink-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150">詳細を見る</a>
                   @if (auth()->id() == $asset->user_id)
-
-                  <a href="{{ route('assets.edit', $asset) }}" class="text-blue-500 hover:text-blue-700 mr-2">編集</a>
-                  <form action="{{ route('assets.destroy', $asset) }}" method="POST" onsubmit="return confirm('本当に削除しますか？');">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="text-red-500 hover:text-red-700">削除</button>
-                  </form>
-
+                  <div class="flex">
+                    <a href="{{ route('assets.edit', $asset) }}" class="mr-2">
+                      <i class="fas fa-edit text-blue-500 hover:text-blue-700"></i>
+                    </a>
+                    <form action="{{ route('assets.destroy', $asset) }}" method="POST" onsubmit="return confirm('本当に削除しますか？');">
+                      @csrf
+                      @method('DELETE')
+                      <button type="submit" class="text-red-500 hover:text-red-700">
+                        <i class="fas fa-trash"></i>
+                      </button>
+                    </form>
+                  </div>
                   @endif
                 </div>
 
@@ -52,11 +54,15 @@
                   <p class="text-sm text-gray-600 dark:text-gray-400">募集ID: {{ $calendar->id }} 募集人数: {{ $calendar->reserve_number }}</p>
                   <p class="text-sm text-gray-600 dark:text-gray-400">募集日: {{ $calendar->start_date }} 終了日: {{ $calendar->end_date }}</p>
                   <div class="flex justify-start mt-4">
-                    <a href="{{ route('calendars.edit', ['asset_id' => $asset->id,'calendar_id' => $calendar->id]) }}" class="text-blue-500 hover:text-blue-700 mr-2">編集</a>
+                    <a href="{{ route('calendars.edit', ['asset_id' => $asset->id,'calendar_id' => $calendar->id]) }}" class="mr-2">
+                      <i class="fas fa-edit text-blue-500 hover:text-blue-700"></i>
+                    </a>
                     <form action="{{ route('calendars.destroy', $calendar) }}" method="POST" onsubmit="return confirm('本当に削除しますか？');">
                       @csrf
                       @method('DELETE')
-                      <button type="submit" class="text-red-500 hover:text-red-700">削除</button>
+                      <button type="submit" class="text-red-500 hover:text-red-700">
+                        <i class="fas fa-trash"></i>
+                      </button>
                     </form>
                   </div>
 
@@ -65,7 +71,7 @@
 
               </div>
               <div class="mt-4">
-                <a href="{{ route('calendars.create', ['asset_id' => $asset->id]) }}" class="inline-block px-6 py-4 bg-pink-500 text-white text-center rounded">募集する</a>
+                <a href="{{ route('calendars.create', ['asset_id' => $asset->id]) }}" class="inline-flex items-center px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150">募集する</a>
               </div>
             </div>
 
