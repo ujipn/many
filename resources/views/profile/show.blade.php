@@ -6,8 +6,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>団体さんいらっしゃい</title>
+    <!-- <title>{{ config('app.name', 'Laravel') }}</title> -->
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -132,27 +132,37 @@
         </div>
     </nav>
 
+    <!-- プロフィール詳細 -->
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
             <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
                 <div class="max-w-xl">
-                    @include('profile.partials.update-profile-information-form')
+                    <!-- ユーザー名 -->
+                    <div class="flex">
+                    <h1 class="text-gray-600 dark:text-gray-400 text-sm font-medium ">ユーザー名</h1>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm ml-2"> {{ $user->name }}</p>
+                    </div>
+                    
+
+                    <!-- 自己紹介 -->
+                    <div class="flex">
+                    <p class="text-gray-600 dark:text-gray-400 text-sm font-medium">自己紹介</p>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm"> {{ $user->introduction }}</p>
+                    </div>
+                    
+
+                    @if (auth()->id() == $user->id)
+                    <div class="flex mt-4">
+                    <a href="{{ route('profile.edit') }}" class="text-blue-500 hover:text-blue-700 mr-2">編集</a>                        
+                    </div>
+                    @endif
                 </div>
             </div>
 
-            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('profile.partials.update-password-form')
-                </div>
-            </div>
-
-            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('profile.partials.delete-user-form')
-                </div>
-            </div>
+            
         </div>
     </div>
+
 
 </body>
 

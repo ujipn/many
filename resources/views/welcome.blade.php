@@ -876,7 +876,7 @@
                                 <img src="{{ Storage::url($asset->image) }}" alt="Asset Image" class="mt-2 w-full h-40 object-cover"> <!-- 画像を表示 -->
                                 @endif
                                 <div class="p-4">
-                                    <p class="text-gray-600 dark:text-gray-400 text-sm">施設名: {{ $asset->asset_name }}</p>
+                                    <p class="text-gray-600 dark:text-gray-400 text-sm font-medium">施設名: {{ $asset->asset_name }}</p>
                                     <p class="text-gray-600 dark:text-gray-400 text-sm">所在地: {{ $asset->asset_area }}</p>
                                     <p class="text-gray-600 dark:text-gray-400 text-sm">収容人数: {{ number_format($asset->asset_number) }}人</p>
                                     <p class="text-gray-600 dark:text-gray-400 text-sm">金額: {{ number_format($asset->asset_amount) }}円</p>
