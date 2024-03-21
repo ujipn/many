@@ -73,7 +73,7 @@
                             </x-dropdown-link>
                             @endif
                             @if (Auth::check())
-                            <x-dropdown-link :href="route('profile.show')">
+                            <x-dropdown-link :href="route('profile.show', Auth::user()->id)">
                                 {{ __('Profile') }}
                             </x-dropdown-link>
 
@@ -114,7 +114,7 @@
                 </div>
 
                 <div class="mt-3 space-y-1">
-                    <x-responsive-nav-link :href="route('profile.show')">
+                    <x-responsive-nav-link :href="route('profile.show', Auth::user()->id)">
                         {{ __('Profile') }}
                     </x-responsive-nav-link>
 
@@ -152,7 +152,11 @@
                         <p class="text-gray-600 dark:text-gray-400 text-sm">所在地: {{ $asset->asset_area }}</p>
                         <p class="text-gray-600 dark:text-gray-400 text-sm">所要人数: {{ number_format($asset->asset_number) }}人</p>
                         <p class="text-gray-600 dark:text-gray-400 text-sm">金額: {{ number_format($asset->asset_amount) }}円</p>
-                        <p class="text-gray-600 dark:text-gray-400 text-sm">施設オーナー：{{ $asset->user->name }}さん</p>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">施設オーナー：
+                            <a href="{{ route('profile.show', $asset->user->id) }}" class="text-blue-500 hover:text-blue-700">
+                                {{ $asset->user->name }}さん
+                            </a>
+                        </p>
                         <div class="text-gray-600 dark:text-gray-400 text-sm flex">
                             <p>投稿日時: {{ $asset->created_at->format('Y-m-d H:i') }}</p>
                             <p>更新日時: {{ $asset->updated_at->format('Y-m-d H:i') }}</p>

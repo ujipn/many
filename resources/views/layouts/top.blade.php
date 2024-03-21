@@ -62,7 +62,7 @@
                         {{ __('オーナーモードへ') }}
                     </x-dropdown-link>
                     @endif
-                    <x-dropdown-link :href="route('profile.show')">
+                    <x-dropdown-link :href="route('profile.show', Auth::user()->id)">
                         {{ __('Profile') }}
                     </x-dropdown-link>
 
@@ -105,7 +105,7 @@
     <div class="fixed top-0 left-0 mt-2 w-full bg-white border rounded shadow-lg z-50 overflow-y-auto" x-show="open" x-on:click.away="open = false">
         <div class="py-2">
         @auth
-        <a href="{{ route('profile.show') }}" class="block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white">Profile</a>
+        <a href="{{ route('profile.show', Auth::user()->id) }}" class="block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white">Profile</a>
         @if (Auth::user()->is_admin)
         <a href="{{ url('/dashboard') }}" class="block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white">オーナーモードへ</a>
         @endif

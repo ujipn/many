@@ -73,7 +73,7 @@
                             </x-dropdown-link>
                             @endif
                             @if (Auth::check())
-                            <x-dropdown-link :href="route('profile.show')">
+                            <x-dropdown-link :href="route('profile.show', Auth::user()->id)">
                                 {{ __('Profile') }}
                             </x-dropdown-link>
 
@@ -114,7 +114,7 @@
                 </div>
 
                 <div class="mt-3 space-y-1">
-                    <x-responsive-nav-link :href="route('profile.show')">
+                    <x-responsive-nav-link :href="route('profile.show', Auth::user()->id)">
                         {{ __('Profile') }}
                     </x-responsive-nav-link>
 
@@ -139,27 +139,25 @@
                 <div class="max-w-xl">
                     <!-- ユーザー名 -->
                     <div class="flex">
-                    <h1 class="text-gray-600 dark:text-gray-400 text-sm font-medium ">ユーザー名</h1>
-                    <p class="text-gray-600 dark:text-gray-400 text-sm ml-2"> {{ $user->name }}</p>
+                        <h1 class="text-gray-600 dark:text-gray-400 text-sm font-medium ">ユーザー名</h1>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm ml-2"> {{ $assetOwner->name }}</p>
                     </div>
-                    
 
                     <!-- 自己紹介 -->
                     <div class="flex">
-                    <p class="text-gray-600 dark:text-gray-400 text-sm font-medium">自己紹介</p>
-                    <p class="text-gray-600 dark:text-gray-400 text-sm ml-2"> {{ $user->introduction }}</p>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm font-medium">自己紹介</p>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm ml-2"> {{ $assetOwner->introduction }}</p>
                     </div>
-                    
 
-                    @if (auth()->id() == $user->id)
+                    @if (auth()->id() == $assetOwner->id)
                     <div class="flex mt-4 ">
-                    <a href="{{ route('profile.edit') }}" class="inline-flex items-center px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150">編集</a>                        
+                        <a href="{{ route('profile.edit') }}" class="inline-flex items-center px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150">編集</a>
                     </div>
                     @endif
                 </div>
             </div>
 
-            
+
         </div>
     </div>
 

@@ -7,6 +7,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use App\Models\User;
 use Illuminate\View\View;
 
 class ProfileController extends Controller
@@ -34,18 +35,24 @@ class ProfileController extends Controller
 
         $request->user()->save();
 
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
+        return Redirect::route('profile.show', $request->user()->id)->with('status', 'profile-updated');
     }
 
     /**
      * Display the user's profile.
      */
-    public function show(Request $request): View
-    {
-        return view('profile.show', [
-            'user' => $request->user(),
-        ]);
-    }
+    // public function show(Request $request): View
+    // {
+    //     return view('profile.show', [
+    //         'user' => $request->user(),
+    //     ]);
+    // }
+
+    public function show(User $user)
+{
+    $assetOwner = $user; // アセットのオーナーの情報を取得
+    return view('profile.show', compact('assetOwner')); // ビューにアセットのオーナーの情報を渡す
+}
 
     /**
      * Delete the user's account.

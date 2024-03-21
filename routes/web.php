@@ -28,7 +28,7 @@ Route::get('/', [WelcomeController::class, 'index'])->name('home');
 // Route::get('/detail/{id}', [WelcomeController::class, 'detail'])->name('detail');
 
 Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
-Route::get('/profile/show', [ProfileController::class, 'show'])->name('profile.show');
+Route::get('/profile/{user}', [ProfileController::class, 'show'])->name('profile.show');
 Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
 Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
@@ -42,7 +42,7 @@ Route::middleware('admin')->group(function () {
 });
 
 // 一般ユーザーがアクセス可能なアセット表示ルート
-Route::get('/assets/{asset}', [AssetController::class, 'show'])->name('assets.show');
+Route::get('/assets/{asset}', [AssetController::class, 'show'])->name('assets.show')->middleware('auth');
 
 //カレンダー機能
 Route::get('/calendar', [CalendarController::class, 'index'])->name('calendar');

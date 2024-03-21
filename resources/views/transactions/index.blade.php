@@ -61,7 +61,7 @@
                             </x-dropdown-link>
                             @endif
                             @if (Auth::check())
-                            <x-dropdown-link :href="route('profile.show')">
+                            <x-dropdown-link :href="route('profile.show', Auth::user()->id)">
                                 {{ __('Profile') }}
                             </x-dropdown-link>
 
