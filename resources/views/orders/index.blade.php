@@ -80,6 +80,10 @@
                                 {{ __('Profile') }}
                             </x-dropdown-link>
 
+                            <x-dropdown-link :href="route('orders.create')">
+                                {{ __('企画を依頼する') }}
+                            </x-dropdown-link>
+
                             <!-- Authentication -->
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
@@ -138,74 +142,64 @@
         </div>
     </nav>
 
-    <!-- 全体：施設が出る部分 -->
-    <div class="flex flex-col md:flex-row bg-gray-100">
-        <!-- 左側部分 -->
-        <div class="text-gray-700 px-4 py-4 w-full md:w-1/2">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6 text-black dark:text-gray-300">
-                        
-                        <p class="text-black dark:text-gray-300 text-lg">{{ $asset->asset }}</p>
-                        @if ($asset->image)
-                        <img src="{{ Storage::url($asset->image) }}" alt="Asset Image" class="mt-2 rounded"> <!-- 画像を表示 -->
-                        @endif
+    <header class="bg-white dark:bg-gray-800 shadow">
+        <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+                {{ __('企画募集一覧') }}
+            </h2>
+        </div>
+    </header>
 
-                        <!-- <h2 class="text-gray-600 dark:text-gray-400 text-sm">！利用者評価：＊＊点</h2>
-                        <h2 class="text-gray-600 dark:text-gray-400 text-sm">！利用者レビュー：＊＊件</h2> -->
-                        <h1>{{ $asset->asset_title }}</h1>
-                        <p class="text-gray-600 dark:text-gray-400 text-sm font-medium">施設名: {{ $asset->asset_name }}</p>
-                        <p class="text-gray-600 dark:text-gray-400 text-sm">所在地: {{ $asset->asset_area }}</p>
-                        <p class="text-gray-600 dark:text-gray-400 text-sm">所要人数: {{ number_format($asset->asset_number) }}人</p>
-                        <p class="text-gray-600 dark:text-gray-400 text-sm">金額: {{ number_format($asset->asset_amount) }}円(1人あたり{{ number_format($asset->asset_amount / $asset->asset_number) }}円)</p>
-                        <p class="text-gray-600 dark:text-gray-400 text-sm">施設オーナー：
-                            <a href="{{ route('profile.show', $asset->user->id) }}" class="text-blue-500 hover:text-blue-700">
-                                {{ $asset->user->name }}さん
-                            </a>
-                        </p>
-                        <div class="text-gray-600 dark:text-gray-400 text-sm flex">
-                            <p>投稿日時: {{ $asset->created_at->format('Y-m-d H:i') }}</p>
-                            <p>更新日時: {{ $asset->updated_at->format('Y-m-d H:i') }}</p>
-                        </div>
-                        <div class="">
-                            <p class="text-gray-600 dark:text-gray-400 text-sm font-medium">【施設情報】</p>
-                            <p class="text-gray-600 dark:text-gray-400 text-sm bg-gray-100 dark:bg-gray-700 rounded-lg overflow-hidden">{!! nl2br(e($asset->introduction)) !!}</p>
-                        </div>
-
-
-                        @if (auth()->id() == $asset->user_id)
-                        <div class="flex">
-                            <a href="{{ route('assets.edit', $asset) }}" class="mr-2">
-                                <i class="fas fa-edit text-blue-500 hover:text-blue-700"></i>
-                            </a>
-                            <form action="{{ route('assets.destroy', $asset) }}" method="POST" onsubmit="return confirm('本当に削除しますか？');">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="text-red-500 hover:text-red-700">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </form>
-                        </div>
-                        @endif
+    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="">
+            <div class="flex flex-col sm:flex-row p-4 text-gray-900 dark:text-gray-100">
+                <form method="GET" action="{{ route('orders.index') }}" class="flex flex-col sm:flex-row w-full">
+                    <input type="text" name="search" placeholder="キーワードを入力" class="shadow appearance-none border rounded w-full sm:w-1/4 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-2 sm:mb-0">
+                    <div class="flex justify-between sm:justify-start ml-0 sm:ml-4 w-full sm:w-auto">
+                        <button type="submit" class="inline-block px-2 py-2 text-black text-center rounded ml-2">
+                            <i class="fas fa-search"></i> 検索
+                        </button>
+                        <a href="{{ route('orders.index') }}" class="inline-block px-2 py-2 bg-white-500 text-black text-center rounded ml-2">
+                            <i class="fas fa-times"></i> クリア
+                        </a>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
-
-        <!--右側エリア[START]-->
-        <div class="w-full md:w-1/2">
-            <div class="py-4">
-                <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                        @include('layouts.calendar')
-                    </div>
-                </div>
-            </div>
-
-
-        </div>
-
     </div>
+
+
+    <!-- オーダーを掲載する部分 -->
+    <div class="py-2">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white dark:bg-gray-800  shadow-sm sm:rounded-lg ">
+                <div class="p-4 text-gray-900 dark:text-gray-100">
+                    <div class="flex flex-wrap -mx-4">
+                        @foreach ($orders as $order)
+                        <div class="p-4 w-full sm:w-1/2 md:w-1/3 lg:w-1/3 xl:w-1/3">
+                            <div class="bg-gray-100 dark:bg-gray-700 rounded-lg overflow-hidden">
+                                <p class="text-gray-800 dark:text-gray-300 font-medium">団体名：{{ $order->group_name }}</p>
+                                <div class="p-4">
+                                    <p class="text-gray-600 dark:text-gray-400 text-sm font-medium">目的: {{ $order->order_purpose }}</p>
+                                    <p class="text-gray-600 dark:text-gray-400 text-sm ">出発日: {{ \Carbon\Carbon::parse($order->start_date)->format('Y-m-d') }}</p>
+                                    <p class="text-gray-600 dark:text-gray-400 text-sm ">終了日: {{ \Carbon\Carbon::parse($order->end_date)->format('Y-m-d') }}</p>
+                                    <p class="text-gray-600 dark:text-gray-400 text-sm">人数: {{ number_format($order->order_number) }}人</p>
+                                    <p class="text-gray-600 dark:text-gray-400 text-sm">予算: {{ number_format($order->order_budget) }}円(1人あたり{{ number_format($order->order_budget / $order->order_number) }}円)</p>
+                                    <p class="text-gray-600 dark:text-gray-400 text-sm">エリア: {{ $order->order_area }}</p>
+                                    <!-- <p class="text-gray-600 dark:text-gray-400 text-sm">内容: {{ $order->order_content }}</p> -->
+                                    <div class="text-left">
+                                        <a href="{{ route('orders.show', $order) }}" class="inline-block px-4 py-2 bg-pink-500 text-white text-center rounded">詳細を見る</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 </body>
 

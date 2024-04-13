@@ -63,7 +63,7 @@
                                     <p class="text-gray-600 dark:text-gray-400 text-sm font-medium">施設名: {{ $asset->asset_name }}</p>
                                     <p class="text-gray-600 dark:text-gray-400 text-sm ">所在地: {{ $asset->asset_area }}</p>
                                     <p class="text-gray-600 dark:text-gray-400 text-sm">収容人数: {{ number_format($asset->asset_number) }}人</p>
-                                    <p class="text-gray-600 dark:text-gray-400 text-sm">金額: {{ number_format($asset->asset_amount) }}円</p>
+                                    <p class="text-gray-600 dark:text-gray-400 text-sm">金額: {{ number_format($asset->asset_amount) }}円(1人あたり{{ number_format($asset->asset_amount / $asset->asset_number) }}円)</p>
                                     <div class="text-left">
                                         <a href="{{ route('assets.show', $asset) }}" class="inline-block px-4 py-2 bg-pink-500 text-white text-center rounded">詳細を見る</a>
                                     </div>

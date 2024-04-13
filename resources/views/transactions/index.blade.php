@@ -34,7 +34,10 @@
                     <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
 
                         <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
-                            {{ __('TOPへ') }}
+                            {{ __('施設一覧へ') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('orders.index')" :active="request()->routeIs('orders.index')">
+                            {{ __('企画募集一覧へ') }}
                         </x-nav-link>
                     </div>
                 </div>

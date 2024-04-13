@@ -8,6 +8,7 @@
                     <a href="{{ route('home') }}">
                         <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
                     </a>
+                    <h1 class="ml-4 text-gray-600 text-center text-lg sm:text-xl font-semibold">団体で過ごすならMany</h1>
                 </div>
 
                 <!-- ハンバーガーメニュー -->
@@ -21,15 +22,15 @@
                 </div>
 
                 <!-- Navigation Links -->
-                <!-- <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
-                        {{ __('候補一覧') }}
-                    </x-nav-link>
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
 
                     <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
-                        {{ __('予約状況を確認する') }}
+                        {{ __('施設一覧へ') }}
                     </x-nav-link>
-                </div> -->
+                    <x-nav-link :href="route('orders.index')" :active="request()->routeIs('orders.index')">
+                        {{ __('企画募集一覧へ') }}
+                    </x-nav-link>
+                </div>
             </div>
 
         </div>
@@ -64,6 +65,10 @@
                     @endif
                     <x-dropdown-link :href="route('profile.show', Auth::user()->id)">
                         {{ __('Profile') }}
+                    </x-dropdown-link>
+
+                    <x-dropdown-link :href="route('orders.create')">
+                        {{ __('企画を依頼する') }}
                     </x-dropdown-link>
 
                     <!-- Authentication -->
@@ -102,23 +107,27 @@
 
 
         <!-- ドロップダウンメニュー -->
-    <div class="fixed top-0 left-0 mt-2 w-full bg-white border rounded shadow-lg z-50 overflow-y-auto" x-show="open" x-on:click.away="open = false">
-        <div class="py-2">
-        @auth
-        <a href="{{ route('profile.show', Auth::user()->id) }}" class="block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white">Profile</a>
-        @if (Auth::user()->is_admin)
-        <a href="{{ url('/dashboard') }}" class="block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white">オーナーモードへ</a>
-        @endif
-        <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white">Log Out</a>
-        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
-            @csrf
-        </form>
-        @else
-        <a href="{{ route('login') }}" class="block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white">Log in</a>
-        <a href="{{ route('register') }}" class="block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white">ユーザー登録</a>
-        <a href="{{ route('admin.register') }}" class="block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white">団体さんに施設を掲載</a>
-        @endauth
+        <div class="fixed top-0 left-0 mt-2 w-full bg-white border rounded shadow-lg z-50 overflow-y-auto" x-show="open" x-on:click.away="open = false">
+            <div class="py-2">
+                <a href="{{ route('home') }}" class="block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white">{{ __('施設一覧へ') }}</a>
+                <a href="{{ route('orders.index') }}" class="block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white">{{ __('企画募集一覧へ') }}</a>
+                @auth
+                <a href="{{ route('profile.show', Auth::user()->id) }}" class="block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white">Profile</a>
+                @if (Auth::user()->is_admin)
+                <a href="{{ url('/dashboard') }}" class="block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white">オーナーモードへ</a>
+                @endif
+                <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white">Log Out</a>
+                <a href="{{ route('orders.create') }}" class="block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white">企画を依頼する</a>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
+                    @csrf
+                </form>
+                @else
+                <a href="{{ route('login') }}" class="block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white">Log in</a>
+                <a href="{{ route('register') }}" class="block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white">ユーザー登録</a>
+                <a href="{{ route('admin.register') }}" class="block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white">団体さんに施設を掲載</a>
+                @endauth
+            </div>
         </div>
-    </div>
+
     </div>
 </nav>

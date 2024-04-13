@@ -6,6 +6,8 @@ use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\CommentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -43,6 +45,8 @@ Route::middleware('admin')->group(function () {
 
 // 一般ユーザーがアクセス可能なアセット表示ルート
 Route::get('/assets/{asset}', [AssetController::class, 'show'])->name('assets.show')->middleware('auth');
+Route::resource('orders', OrderController::class)->middleware('auth');
+
 
 //カレンダー機能
 Route::get('/calendar', [CalendarController::class, 'index'])->name('calendar');
@@ -67,6 +71,11 @@ Route::post('transaction/{calendar_id}', [TransactionController::class, 'store']
 Route::post('post/{transaction_id}', [PostController::class, 'store'])->name('post.store');
 Route::get('posts/{transaction_id}', [PostController::class, 'index'])->name('posts.index');
 Route::delete('posts/{post}', [PostController::class, 'destroy'])->name('posts.destroy');
+
+//取引後のコメントやり取り
+Route::post('orders/{order}/comments', [CommentController::class, 'store'])->name('comments.store');
+Route::delete('comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
+Route::put('/orders/{order}/details', [OrderController::class, 'updateDetails'])->name('orders.updateDetails');
 
 
 require __DIR__ . '/auth.php';

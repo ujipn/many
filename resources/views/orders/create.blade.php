@@ -105,10 +105,7 @@
         <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
             <div class="pt-2 pb-3 space-y-1">
                 <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
-                    {{ __('施設一覧へ') }}
-                </x-nav-link>
-                <x-nav-link :href="route('orders.index')" :active="request()->routeIs('orders.index')">
-                    {{ __('企画募集一覧へ') }}
+                    {{ __('TOPへ') }}
                 </x-nav-link>
             </div>
 
@@ -138,73 +135,60 @@
         </div>
     </nav>
 
-    <!-- 全体：施設が出る部分 -->
-    <div class="flex flex-col md:flex-row bg-gray-100">
-        <!-- 左側部分 -->
-        <div class="text-gray-700 px-4 py-4 w-full md:w-1/2">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6 text-black dark:text-gray-300">
-                        
-                        <p class="text-black dark:text-gray-300 text-lg">{{ $asset->asset }}</p>
-                        @if ($asset->image)
-                        <img src="{{ Storage::url($asset->image) }}" alt="Asset Image" class="mt-2 rounded"> <!-- 画像を表示 -->
-                        @endif
-
-                        <!-- <h2 class="text-gray-600 dark:text-gray-400 text-sm">！利用者評価：＊＊点</h2>
-                        <h2 class="text-gray-600 dark:text-gray-400 text-sm">！利用者レビュー：＊＊件</h2> -->
-                        <h1>{{ $asset->asset_title }}</h1>
-                        <p class="text-gray-600 dark:text-gray-400 text-sm font-medium">施設名: {{ $asset->asset_name }}</p>
-                        <p class="text-gray-600 dark:text-gray-400 text-sm">所在地: {{ $asset->asset_area }}</p>
-                        <p class="text-gray-600 dark:text-gray-400 text-sm">所要人数: {{ number_format($asset->asset_number) }}人</p>
-                        <p class="text-gray-600 dark:text-gray-400 text-sm">金額: {{ number_format($asset->asset_amount) }}円(1人あたり{{ number_format($asset->asset_amount / $asset->asset_number) }}円)</p>
-                        <p class="text-gray-600 dark:text-gray-400 text-sm">施設オーナー：
-                            <a href="{{ route('profile.show', $asset->user->id) }}" class="text-blue-500 hover:text-blue-700">
-                                {{ $asset->user->name }}さん
-                            </a>
-                        </p>
-                        <div class="text-gray-600 dark:text-gray-400 text-sm flex">
-                            <p>投稿日時: {{ $asset->created_at->format('Y-m-d H:i') }}</p>
-                            <p>更新日時: {{ $asset->updated_at->format('Y-m-d H:i') }}</p>
-                        </div>
-                        <div class="">
-                            <p class="text-gray-600 dark:text-gray-400 text-sm font-medium">【施設情報】</p>
-                            <p class="text-gray-600 dark:text-gray-400 text-sm bg-gray-100 dark:bg-gray-700 rounded-lg overflow-hidden">{!! nl2br(e($asset->introduction)) !!}</p>
-                        </div>
+    <header class="bg-white dark:bg-gray-800 shadow">
+        <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+                {{ __('事業者に企画を依頼する') }}
+            </h2>
+        </div>
+    </header>
 
 
-                        @if (auth()->id() == $asset->user_id)
-                        <div class="flex">
-                            <a href="{{ route('assets.edit', $asset) }}" class="mr-2">
-                                <i class="fas fa-edit text-blue-500 hover:text-blue-700"></i>
-                            </a>
-                            <form action="{{ route('assets.destroy', $asset) }}" method="POST" onsubmit="return confirm('本当に削除しますか？');">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="text-red-500 hover:text-red-700">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </form>
+
+    <!-- オーダーする部分 -->
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 text-gray-900 dark:text-gray-100">
+                    <form method="POST" action="{{ route('orders.store') }}">
+                        @csrf
+                        <div class="mb-4">
+                            <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">団体名</label>
+                            <input type="text" name="group_name" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 dark:bg-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                         </div>
-                        @endif
-                    </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">旅の目的</label>
+                            <input type="text" name="order_purpose" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 dark:bg-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">出発日</label>
+                            <input type="date" name="start_date" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 dark:bg-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">終了日</label>
+                            <input type="date" name="end_date" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 dark:bg-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">人数</label>
+                            <input type="number" name="order_number" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 dark:bg-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">予算</label>
+                            <input type="number" name="order_budget" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 dark:bg-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">希望エリア</label>
+                            <input type="text" name="order_area" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 dark:bg-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">募集する内容</label>
+                            <textarea name="order_content" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 dark:bg-gray-700 leading-tight focus:outline-none focus:shadow-outline"></textarea>
+                        </div>
+                        <button type="submit" class="inline-flex items-center px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150">送信</button>
+                    </form>
                 </div>
             </div>
         </div>
-
-        <!--右側エリア[START]-->
-        <div class="w-full md:w-1/2">
-            <div class="py-4">
-                <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                        @include('layouts.calendar')
-                    </div>
-                </div>
-            </div>
-
-
-        </div>
-
     </div>
 
 </body>

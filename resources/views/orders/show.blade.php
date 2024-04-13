@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Many団体さんいらっしゃい') }}</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -110,6 +110,7 @@
                 <x-nav-link :href="route('orders.index')" :active="request()->routeIs('orders.index')">
                     {{ __('企画募集一覧へ') }}
                 </x-nav-link>
+
             </div>
 
             <!-- Responsive Settings Options -->
@@ -138,47 +139,33 @@
         </div>
     </nav>
 
-    <!-- 全体：施設が出る部分 -->
+    <!-- 全体：企画募集の詳細が出る部分 -->
     <div class="flex flex-col md:flex-row bg-gray-100">
         <!-- 左側部分 -->
         <div class="text-gray-700 px-4 py-4 w-full md:w-1/2">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg  mb-4">
                     <div class="p-6 text-black dark:text-gray-300">
-                        
-                        <p class="text-black dark:text-gray-300 text-lg">{{ $asset->asset }}</p>
-                        @if ($asset->image)
-                        <img src="{{ Storage::url($asset->image) }}" alt="Asset Image" class="mt-2 rounded"> <!-- 画像を表示 -->
-                        @endif
 
-                        <!-- <h2 class="text-gray-600 dark:text-gray-400 text-sm">！利用者評価：＊＊点</h2>
-                        <h2 class="text-gray-600 dark:text-gray-400 text-sm">！利用者レビュー：＊＊件</h2> -->
-                        <h1>{{ $asset->asset_title }}</h1>
-                        <p class="text-gray-600 dark:text-gray-400 text-sm font-medium">施設名: {{ $asset->asset_name }}</p>
-                        <p class="text-gray-600 dark:text-gray-400 text-sm">所在地: {{ $asset->asset_area }}</p>
-                        <p class="text-gray-600 dark:text-gray-400 text-sm">所要人数: {{ number_format($asset->asset_number) }}人</p>
-                        <p class="text-gray-600 dark:text-gray-400 text-sm">金額: {{ number_format($asset->asset_amount) }}円(1人あたり{{ number_format($asset->asset_amount / $asset->asset_number) }}円)</p>
-                        <p class="text-gray-600 dark:text-gray-400 text-sm">施設オーナー：
-                            <a href="{{ route('profile.show', $asset->user->id) }}" class="text-blue-500 hover:text-blue-700">
-                                {{ $asset->user->name }}さん
-                            </a>
-                        </p>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm font-medium">団体名: {{ $order->group_name }}</p>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">旅の目的: {{ $order->order_purpose }}</p>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">出発日: {{ $order->start_date }}</p>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">終了日: {{ $order->end_date }}</p>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">人数: {{ number_format($order->order_number) }}人</p>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">予算: {{ number_format($order->order_budget) }}円 (1人あたり{{ number_format($order->order_budget / $order->order_number) }}円)</p>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">希望エリア: {{ $order->order_area }}</p>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm font-medium">募集内容: {{ $order->order_content }}</p>
                         <div class="text-gray-600 dark:text-gray-400 text-sm flex">
-                            <p>投稿日時: {{ $asset->created_at->format('Y-m-d H:i') }}</p>
-                            <p>更新日時: {{ $asset->updated_at->format('Y-m-d H:i') }}</p>
-                        </div>
-                        <div class="">
-                            <p class="text-gray-600 dark:text-gray-400 text-sm font-medium">【施設情報】</p>
-                            <p class="text-gray-600 dark:text-gray-400 text-sm bg-gray-100 dark:bg-gray-700 rounded-lg overflow-hidden">{!! nl2br(e($asset->introduction)) !!}</p>
+                            <p>投稿日時: {{ $order->created_at->format('Y-m-d H:i') }}</p>
+                            <p>更新日時: {{ $order->updated_at->format('Y-m-d H:i') }}</p>
                         </div>
 
-
-                        @if (auth()->id() == $asset->user_id)
+                        @if (auth()->id() == $order->user_id)
                         <div class="flex">
-                            <a href="{{ route('assets.edit', $asset) }}" class="mr-2">
+                            <a href="{{ route('orders.edit', $order) }}" class="mr-2">
                                 <i class="fas fa-edit text-blue-500 hover:text-blue-700"></i>
                             </a>
-                            <form action="{{ route('assets.destroy', $asset) }}" method="POST" onsubmit="return confirm('本当に削除しますか？');">
+                            <form action="{{ route('orders.destroy', $order) }}" method="comment" onsubmit="return confirm('本当に削除しますか？');">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="text-red-500 hover:text-red-700">
@@ -189,24 +176,109 @@
                         @endif
                     </div>
                 </div>
+                <!--左側エリア[状況]-->
+                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                    <div class="p-4">
+                        @if (auth()->id() == $order->user_id)
+                        <form id="itinerary-form" action="{{ route('orders.update', $order) }}" method="POST">
+                            @csrf
+                            @method('PUT')
+                            <div class="mb-4">
+                                <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">
+                                    宿泊先
+                                </label>
+                                <select name="accommodation_status" class="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                                    <option value="confirmed" {{ $order->accommodation_status == 'confirmed' ? 'selected' : '' }}>確定済</option>
+                                    <option value="unconfirmed" {{ $order->accommodation_status == 'unconfirmed' ? 'selected' : '' }}>未定</option>
+                                </select>
+                            </div>
+                            <div class="mb-4">
+                                <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">
+                                    近隣のアクティビティ
+                                </label>
+                                <select name="activity_status" class="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                                    <option value="confirmed" {{ $order->activity_status == 'confirmed' ? 'selected' : '' }}>確定済</option>
+                                    <option value="unconfirmed" {{ $order->activity_status == 'unconfirmed' ? 'selected' : '' }}>未定</option>
+                                </select>
+                            </div>
+                            <div class="mb-4">
+                                <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">
+                                    滞在中のコンテンツ
+                                </label>
+                                <select name="content_status" class="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                                    <option value="confirmed" {{ $order->content_status == 'confirmed' ? 'selected' : '' }}>確定済</option>
+                                    <option value="unconfirmed" {{ $order->content_status == 'unconfirmed' ? 'selected' : '' }}>未定</option>
+                                </select>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <button class="bg-pink-500 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+                                    更新
+                                </button>
+                            </div>
+                        </form>
+                        @else
+                        <div>
+                            <p>【宿泊先】 {{ $order->accommodation_status == 'confirmed' ? '確定済' : '未定' }}</p>
+                            <p>【近隣のアクティビティ】 {{ $order->activity_status == 'confirmed' ? '確定済' : '未定' }}</p>
+                            <p>【滞在中のコンテンツ】 {{ $order->content_status == 'confirmed' ? '確定済' : '未定' }}</p>
+                        </div>
+                        @endif
+                    </div>
+                </div>
             </div>
-        </div>
 
+        </div>
         <!--右側エリア[START]-->
-        <div class="w-full md:w-1/2">
-            <div class="py-4">
+        <div class="text-gray-700 px-4 py-4 w-full md:w-1/2">
+            <div class="py-2">
                 <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                        @include('layouts.calendar')
+
+
+                        <div class="p-2 text-black text-gray-600 dark:text-gray-400 text-sm font-medium">提案一覧</div>
+
+                        @foreach ($comments as $comment)
+                        <div class="flex justify-start items-center mb-4 p-4 border-b dark:border-gray-700 px-4">
+                            @if (auth()->id() == $comment->user_id)
+                            <form action="{{ route('comments.destroy', $comment) }}" method="POST" onsubmit="return confirm('本当に削除しますか？');">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="text-red-500 hover:text-red-700 mr-2">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
+                            @endif
+                            <p class="text-gray-600 dark:text-gray-400 text-sm flex-grow">投稿者: {{ $comment->user->name }} 投稿内容：{{ $comment->content }}</p>
+
+                        </div>
+
+                        @endforeach
+
+                        <form method="POST" action="{{ route('comments.store', ['order' => $order->id]) }}">
+                            @csrf
+                            <div class="mb-4">
+                                <label for="content" class="sr-only">メッセージ</label>
+                                <textarea name="content" id="content" cols="30" rows="4" class="bg-gray-100 dark:bg-gray-700 border-2 w-full p-4 rounded-lg @error('content') border-red-500 @enderror" placeholder="メッセージを入力してください"></textarea>
+                                @error('content')
+                                <div class="text-red-500 mt-2 text-sm">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                            </div>
+                            <div>
+                                <button type="submit" class="bg-pink-500 hover:bg-pink-700 text-white px-4 py-2 rounded font-medium">投稿</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
 
 
         </div>
+        <!--右側エリア[END]-->
+
 
     </div>
-
 </body>
 
 </html>
