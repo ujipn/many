@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Asset extends Model
 {
-    use HasFactory;
-//許可するデータを指定するために fillable プロパティを使用する
-    protected $fillable = ['asset_title','asset_name', 'asset_area', 'asset_number', 'asset_amount', 'published','image','introduction',];
+  use HasFactory;
+  //許可するデータを指定するために fillable プロパティを使用する
+  protected $fillable = ['asset_title', 'asset_name', 'asset_area', 'asset_number', 'asset_amount', 'published', 'image', 'introduction',];
 
   public function user()
   {
@@ -17,7 +17,12 @@ class Asset extends Model
   }
 
   public function calendars()
-{
+  {
     return $this->hasMany('App\Models\Calendar');
-}
+  }
+
+  public function talks()
+  {
+    return $this->hasMany(Talk::class);
+  }
 }

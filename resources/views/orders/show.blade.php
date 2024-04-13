@@ -79,6 +79,9 @@
                             <x-dropdown-link :href="route('profile.show', Auth::user()->id)">
                                 {{ __('Profile') }}
                             </x-dropdown-link>
+                            <x-dropdown-link :href="route('orders.create')">
+                                {{ __('企画を依頼する') }}
+                            </x-dropdown-link>
 
                             <!-- Authentication -->
                             <form method="POST" action="{{ route('logout') }}">

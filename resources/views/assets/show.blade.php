@@ -145,7 +145,7 @@
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 text-black dark:text-gray-300">
-                        
+
                         <p class="text-black dark:text-gray-300 text-lg">{{ $asset->asset }}</p>
                         @if ($asset->image)
                         <img src="{{ Storage::url($asset->image) }}" alt="Asset Image" class="mt-2 rounded"> <!-- 画像を表示 -->
@@ -193,7 +193,7 @@
         </div>
 
         <!--右側エリア[START]-->
-        <div class="w-full md:w-1/2">
+        <div class="text-gray-700 px-4 py-4 w-full md:w-1/2">
             <div class="py-4">
                 <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
@@ -202,10 +202,50 @@
                 </div>
             </div>
 
+            <!--投稿する場所-->
+            <div class="py-2">
+                <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                    <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
 
-        </div>
 
-    </div>
+                        <div class="p-2 text-black text-gray-600 dark:text-gray-400 text-sm font-medium">オーナーと会話をしましょう</div>
+
+                        @foreach ($talks as $talk)
+                        <div class="flex justify-start items-start mb-4 p-2 border-b dark:border-gray-700 px-4">
+                            @if (auth()->id() == $talk->user_id)
+                            <form action="{{ route('talks.destroy', $talk) }}" method="POST" onsubmit="return confirm('本当に削除しますか？');">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="text-red-500 hover:text-red-700 mr-2">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
+                            @endif
+                            <p class="text-gray-600 dark:text-gray-400 text-sm flex-grow">投稿者: {{ $talk->user->name }} 投稿内容：{{ $talk->content }}</p>
+
+                        </div>
+
+                        @endforeach
+
+                        <form method="POST" action="{{ route('talks.store', ['asset' => $asset->id]) }}">
+                            @csrf
+                            <div class="mb-4">
+                                <label for="content" class="sr-only">メッセージ</label>
+                                <textarea name="content" id="content" cols="30" rows="4" class="bg-gray-100 dark:bg-gray-700 border-2 w-full p-4 rounded-lg @error('content') border-red-500 @enderror" placeholder="メッセージを入力してください"></textarea>
+                                @error('content')
+                                <div class="text-red-500 mt-2 text-sm">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                            </div>
+                            <div>
+                                <button type="submit" class="bg-pink-500 hover:bg-pink-700 text-white px-4 py-2 rounded font-medium">投稿</button>
+
+
+
+                            </div>
+
+                    </div>
 
 </body>
 

@@ -8,6 +8,7 @@ use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\TalkController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -76,6 +77,9 @@ Route::delete('posts/{post}', [PostController::class, 'destroy'])->name('posts.d
 Route::post('orders/{order}/comments', [CommentController::class, 'store'])->name('comments.store');
 Route::delete('comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
 Route::put('/orders/{order}/details', [OrderController::class, 'updateDetails'])->name('orders.updateDetails');
+
+Route::post('assets/{asset}/talks', [TalkController::class, 'store'])->name('talks.store');
+Route::delete('talks/{talk}', [TalkController::class, 'destroy'])->name('talks.destroy');
 
 
 require __DIR__ . '/auth.php';

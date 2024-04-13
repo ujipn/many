@@ -67,7 +67,9 @@ class AssetController extends Controller
      */
     public function show(Asset $asset)
     {
-        return view('assets.show', compact('asset'));
+        
+        $talks = $asset->talks; // talksを取得
+        return view('assets.show', compact('asset', 'talks')); // talksをビューに渡す
     }
 
     /**
