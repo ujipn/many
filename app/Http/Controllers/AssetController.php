@@ -38,7 +38,7 @@ class AssetController extends Controller
             'asset_area' => 'required|min:1|max:100',
             'asset_number' => 'required | min:1 | max:20',
             'asset_amount' => 'required',
-            'introduction' => 'nullable|max:255', // 施設情報のバリデーションルールを追加
+            'introduction' => 'nullable|max:1000', // 施設情報のバリデーションルールを追加
             'image' => 'nullable|image', // 画像のバリデーションルールを追加
         ]);
 
@@ -67,7 +67,7 @@ class AssetController extends Controller
      */
     public function show(Asset $asset)
     {
-        
+
         $talks = $asset->talks; // talksを取得
         return view('assets.show', compact('asset', 'talks')); // talksをビューに渡す
     }
@@ -86,33 +86,30 @@ class AssetController extends Controller
      */
     public function update(Request $request, Asset $asset)
     {
-        //
         if ($asset->user_id != auth()->id()) {
-            // このAssetは現在認証されているユーザーのものではないため、更新を許可しない
             return redirect()->route('assets.index');
         }
-        //
+
         $request->validate([
             'asset_title' => 'required|min:1|max:255',
             'asset_name' => 'required|min:1|max:255',
-            'asset_area' => 'required|min:1|max:10',
+            'asset_area' => 'required|min:1|max:100',
             'asset_number' => 'required | min:1 | max:20',
             'asset_amount' => 'required',
-            'introduction' => 'nullable|max:255', // 施設情報のバリデーションルールを追加
-            'image' => 'nullable|image', // 画像のバリデーションルールを追加
+            'introduction' => 'nullable|max:1000',
+            'image' => 'nullable|image',
         ]);
 
-        // 画像がアップロードされた場合のみ、新しい画像を保存
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('images', 'public');
             $asset->image = $imagePath;
-        } else {
-            $imagePath = $asset->image;
         }
 
         $asset->introduction = $request->introduction;
 
-        $asset->update($request->only('asset_title','asset_name', 'asset_area', 'asset_number', 'asset_amount'));
+        $asset->update($request->only('asset_title', 'asset_name', 'asset_area', 'asset_number', 'asset_amount'));
+
+        $asset->save(); 
 
         return redirect()->route('assets.index');
     }

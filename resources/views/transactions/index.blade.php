@@ -99,7 +99,8 @@
                         <h1>取引情報</h1>
 
                         <p class="text-gray-600 dark:text-gray-400 text-sm">施設名: {{ $asset->asset_name }}</p>
-                        <p class="text-gray-600 dark:text-gray-400 text-sm">予約希望日: {{ $calendar->start_date }}</p>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">予約希望日: {{ \Carbon\Carbon::parse($calendar->start_date)->format('Y-m-d') }}</p>
+
                         <div class="text-gray-600 dark:text-gray-400 text-sm">
                             <p>予約登録日: {{ $transaction->created_at->format('Y-m-d') }}</p>
                         </div>

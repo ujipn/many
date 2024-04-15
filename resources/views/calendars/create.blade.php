@@ -19,11 +19,11 @@
                                     <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">募集日</label>
                                     <input type="date" name="start_date" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 dark:bg-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                                 </div>
-                                <div class="mb-4">
+                                <!-- <div class="mb-4"> -->
                                     <!-- 募集終了日 -->
-                                    <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">募集終了日</label>
-                                    <input type="date" name="end_date" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 dark:bg-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                                </div>
+                                    <!-- <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">募集終了日</label>
+                                    <input type="date" name="end_date" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 dark:bg-gray-700 leading-tight focus:outline-none focus:shadow-outline"> -->
+                                <!-- </div> -->
                                      <!-- 募集人数 -->
                                 <div class="mb-4">
                                     <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">募集人数</label>

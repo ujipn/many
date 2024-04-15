@@ -110,8 +110,9 @@
                         <h1>募集詳細</h1>
 
                         <p class="text-gray-600 dark:text-gray-400 text-sm">施設名: {{ $asset->asset_name }}</p>
-                        <p class="text-gray-600 dark:text-gray-400 text-sm">空いている日: {{ $calendar->start_date }}</p>
-                        <p class="text-gray-600 dark:text-gray-400 text-sm">（終了日: {{ $calendar->end_date }}）</p>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">空いている日: {{ \Carbon\Carbon::parse($calendar->start_date)->format('Y-m-d') }}</p>
+
+                        <!-- <p class="text-gray-600 dark:text-gray-400 text-sm">（終了日:{{ \Carbon\Carbon::parse($calendar->end_date)->format('Y-m-d') }}）</p> -->
                         <p class="text-gray-600 dark:text-gray-400 text-sm">募集上限: {{ $calendar->reserve_number }}人</p>
                         <div class="text-gray-600 dark:text-gray-400 text-sm">
                             <p>作成日: {{ $calendar->created_at->format('Y-m-d H:i') }}</p>
@@ -125,6 +126,8 @@
                             <button type="submit" class="inline-block px-6 py-4 bg-pink-500 text-white text-center rounded">予約する</button>
                         </div>
                     </form>
+                    
+
 
                 </div>
 

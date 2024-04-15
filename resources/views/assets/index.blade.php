@@ -52,7 +52,7 @@
                 @foreach ($asset->calendars as $calendar)
                 <div class="mb-4 p-4">
                   <p class="text-sm text-gray-600 dark:text-gray-400">募集ID: {{ $calendar->id }} 募集人数: {{ $calendar->reserve_number }}</p>
-                  <p class="text-sm text-gray-600 dark:text-gray-400">募集日: {{ $calendar->start_date }} 終了日: {{ $calendar->end_date }}</p>
+                  <p class="text-sm text-gray-600 dark:text-gray-400">募集日: {{ \Carbon\Carbon::parse($calendar->start_date)->format('Y-m-d') }}</p>
                   <div class="flex justify-start mt-4">
                     <a href="{{ route('calendars.edit', ['asset_id' => $asset->id,'calendar_id' => $calendar->id]) }}" class="mr-2">
                       <i class="fas fa-edit text-blue-500 hover:text-blue-700"></i>

@@ -20,7 +20,7 @@
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
- 
+
 </head>
 
 <body class="antialiased">
@@ -60,6 +60,7 @@
                                 <img src="{{ Storage::url($asset->image) }}" alt="Asset Image" class="mt-2 w-full h-40 object-cover"> <!-- 画像を表示 -->
                                 @endif
                                 <div class="p-4">
+                                    <h1 class="text-gray-600 dark:text-gray-400 text-sm font-medium">{{ $asset->asset_title }}</h1>
                                     <p class="text-gray-600 dark:text-gray-400 text-sm font-medium">施設名: {{ $asset->asset_name }}</p>
                                     <p class="text-gray-600 dark:text-gray-400 text-sm ">所在地: {{ $asset->asset_area }}</p>
                                     <p class="text-gray-600 dark:text-gray-400 text-sm">収容人数: {{ number_format($asset->asset_number) }}人</p>
